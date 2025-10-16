@@ -1,0 +1,7 @@
+@import "tailwindcss";
+
+@layer components {
+  .active {
+    @apply font-semibold text-blue-500;
+  }
+}
