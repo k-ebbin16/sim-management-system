@@ -1,6 +1,5 @@
 function SignupForm({ setIsAuthenticated }) {
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = () => {
     setIsAuthenticated(true);
   };
 
