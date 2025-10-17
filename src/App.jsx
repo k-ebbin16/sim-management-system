@@ -6,10 +6,10 @@ import { useState } from "react";
 import HomePage from "./pages/HomePage/HomePage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import NotFound from "./pages/NotFound/NotFound";
-import ProtectedRoute from "./ProtectedRoute";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(true);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   return (
     <Routes>

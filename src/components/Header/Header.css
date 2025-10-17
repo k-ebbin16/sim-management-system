@@ -2,6 +2,6 @@
 
 @layer components {
   .active {
-    @apply font-semibold text-blue-500;
+    @apply font-semibold text-primary;
   }
 }

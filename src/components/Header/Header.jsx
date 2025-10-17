@@ -9,7 +9,7 @@ function Header({ navData }) {
   };
 
   return (
-    <header className="fixed top-0 z-50 h-24 w-full bg-white px-4 shadow-md lg:h-20">
+    <header className="bg-card fixed top-0 z-50 h-24 w-full px-4 shadow-md lg:h-20">
       <div className="mx-auto flex h-full w-full max-w-7xl items-center justify-between px-2 pt-5 lg:px-3">
         <h1 className="cursor-pointer text-3xl font-bold">SIM Management</h1>
 
@@ -19,14 +19,14 @@ function Header({ navData }) {
         />
 
         <div
-          className={`fixed inset-0 bg-gray-200/10 backdrop-blur-sm transition-opacity duration-300 ${
+          className={`bg-popover/60 fixed inset-0 backdrop-blur-sm transition-opacity duration-300 ${
             menuShowing ? "visible opacity-100" : "invisible opacity-0"
           } lg:hidden`}
           onClick={handleHamburger}
         ></div>
 
         <nav
-          className={`fixed top-0 right-0 h-full w-2/3 max-w-sm transform bg-gray-700 p-16 transition-transform duration-300 ease-in-out ${
+          className={`bg-card fixed top-0 right-0 h-full w-2/3 max-w-sm transform p-16 transition-transform duration-300 ease-in-out ${
             menuShowing ? "" : "translate-x-full"
           } lg:static lg:h-auto lg:w-auto lg:max-w-none lg:-translate-x-0 lg:bg-transparent lg:p-0 lg:transition-none`}
         >
@@ -34,7 +34,7 @@ function Header({ navData }) {
             {navData.map(({ id, title, link }) => (
               <li
                 key={id}
-                className="navlink cursor-pointer text-right text-white transition-all duration-300 hover:scale-110 hover:text-blue-400 lg:text-black lg:hover:text-lg"
+                className="navlink text-foreground hover:text-primary lg:text-foreground cursor-pointer text-right transition-all duration-300 hover:scale-110 lg:hover:text-lg"
               >
                 <NavLink to={link}>{title}</NavLink>
               </li>

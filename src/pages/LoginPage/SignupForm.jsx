@@ -25,7 +25,7 @@ function SignupForm({ setIsAuthenticated }) {
           <label htmlFor="" className="text-sm font-medium">
             Full Name
           </label>
-          <div className="border-muted-foreground/20 focus-within:border-primary hover:border-primary flex items-center gap-4 rounded-lg border bg-transparent px-4 py-1.5 transition-all">
+          <div className="border-muted-foreground/20 focus-within:border-primary hover:border-primary flex items-center gap-4 rounded-lg border bg-input-background px-4 py-1.5 transition-all">
             <i className="fa-solid fa-user"></i>
             <input
               className="text-muted-foreground w-full transition-all outline-none placeholder:text-sm placeholder:font-light"
@@ -43,7 +43,7 @@ function SignupForm({ setIsAuthenticated }) {
           <label htmlFor="" className="text-sm font-medium">
             Email Address
           </label>
-          <div className="border-muted-foreground/20 focus-within:border-primary hover:border-primary flex items-center gap-4 rounded-lg border bg-transparent px-4 py-1.5 transition-all">
+          <div className="border-muted-foreground/20 focus-within:border-primary hover:border-primary flex items-center gap-4 rounded-lg border bg-input-background px-4 py-1.5 transition-all">
             <i className="fa-solid fa-envelope"></i>
             <input
               className="text-muted-foreground w-full transition-all outline-none placeholder:text-sm placeholder:font-light"
@@ -61,7 +61,7 @@ function SignupForm({ setIsAuthenticated }) {
           <label htmlFor="" className="text-sm font-medium">
             Phone Number
           </label>
-          <div className="border-muted-foreground/20 focus-within:border-primary hover:border-primary flex items-center gap-4 rounded-lg border bg-transparent px-4 py-1.5 transition-all">
+          <div className="border-muted-foreground/20 focus-within:border-primary hover:border-primary flex items-center gap-4 rounded-lg border bg-input-background px-4 py-1.5 transition-all">
             <i className="fa-solid fa-phone"></i>
             <input
               className="text-muted-foreground w-full transition-all outline-none placeholder:text-sm placeholder:font-light"
@@ -79,7 +79,7 @@ function SignupForm({ setIsAuthenticated }) {
           <label htmlFor="" className="text-sm font-medium">
             Password
           </label>
-          <div className="border-muted-foreground/20 focus-within:border-primary hover:border-primary flex items-center gap-4 rounded-lg border bg-transparent px-4 py-1.5 transition-all">
+          <div className="border-muted-foreground/20 focus-within:border-primary hover:border-primary flex items-center gap-4 rounded-lg border bg-input-background px-4 py-1.5 transition-all">
             <i className="fa-solid fa-lock"></i>
             <input
               className="text-muted-foreground w-full transition-all outline-none placeholder:text-sm placeholder:font-light"
@@ -97,7 +97,7 @@ function SignupForm({ setIsAuthenticated }) {
           <label htmlFor="" className="text-sm font-medium">
             Confirm Password
           </label>
-          <div className="border-muted-foreground/20 focus-within:border-primary hover:border-primary flex items-center gap-4 rounded-lg border bg-transparent px-4 py-1.5 transition-all">
+          <div className="border-muted-foreground/20 focus-within:border-primary hover:border-primary flex items-center gap-4 rounded-lg border bg-input-background px-4 py-1.5 transition-all">
             <i className="fa-solid fa-lock"></i>
             <input
               className="text-muted-foreground w-full transition-all outline-none placeholder:text-sm placeholder:font-light"
@@ -113,11 +113,12 @@ function SignupForm({ setIsAuthenticated }) {
         {/* Agree to terms and conditons */}
         <div className="flex items-center gap-2 text-sm font-medium sm:text-[16px]">
           <input
+            
             required
             type="checkbox"
             name=""
             id=""
-            className="accent-accent h-4 w-4 sm:h-5 sm:w-5"
+            className="accent-accent h-4 w-4 sm:h-5 sm:w-5 bg-input"
           />
           <label htmlFor="">I agree to the terms and conditions</label>
         </div>

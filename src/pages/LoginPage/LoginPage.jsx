@@ -4,6 +4,7 @@ import LoginSwitcher from "./LoginSwitcher";
 import SignupForm from "./SignupForm";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import Logo from "../../components/Logo";
 
 function LoginPage({ isAuthenticated, setIsAuthenticated }) {
   const [isLogin, setIsLogin] = useState(true);
@@ -29,9 +30,13 @@ function LoginPage({ isAuthenticated, setIsAuthenticated }) {
         </div>
         <div className="relative z-10 flex flex-col justify-center p-16">
           <div className="mb-8 flex items-center gap-3">
-            <div className="bg-accent flex h-16 w-16 items-center justify-center rounded-lg">
-              <i className="text-primary fa-solid fa-sim-card text-center text-4xl"></i>
-            </div>
+            <Logo
+              width={16}
+              height={16}
+              fontSize={"4xl"}
+              bgColor={"accent"}
+              iconColor={"primary"}
+            />
             <div>
               <h1 className="text-4xl">SimCard Manager</h1>
               <p className="text-primary-foreground/80">
@@ -68,15 +73,20 @@ function LoginPage({ isAuthenticated, setIsAuthenticated }) {
           {/* Logo and Title */}
           <div className="flex flex-col items-center justify-center gap-4 p-6 lg:hidden">
             {/* Logo */}
-            <div className="bg-primary text-foreground flex h-16 w-16 items-center justify-center rounded-lg p-2 text-center text-3xl">
-              <i className="fa-solid fa-sim-card text-background"></i>
-            </div>
+
+            <Logo
+              width={16}
+              height={16}
+              fontSize={"4xl"}
+              bgColor={"primary"}
+              iconColor={"background"}
+            />
 
             {/* Title */}
             <div className="flex flex-col items-center justify-center gap-1.5">
-              <h2 className="text-primary text-xl font-bold">
+              <h1 className="text-primary text-xl font-bold">
                 SimCard Manager
-              </h2>
+              </h1>
               <p className="text-muted-foreground">
                 Student Administration Portal
               </p>

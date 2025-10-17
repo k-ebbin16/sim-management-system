@@ -6,20 +6,20 @@ function Hamburger({ menuShowing, handleHamburger }) {
     >
       {/* Line 1 */}
       <span
-        className={`block h-1 w-10 rounded bg-black transition-all duration-300 ${
-          menuShowing ? "translate-y-[10px] rotate-45 bg-white" : ""
+        className={`bg-foreground block h-1 w-10 rounded transition-all duration-300 ${
+          menuShowing ? "bg-primary translate-y-[10px] rotate-45" : ""
         }`}
       />
       {/* Line 2 */}
       <span
-        className={`block h-1 w-10 rounded bg-black transition-all duration-300 ${
+        className={`bg-foreground block h-1 w-10 rounded transition-all duration-300 ${
           menuShowing ? "opacity-0" : ""
         }`}
       />
       {/* Line 3 */}
       <span
-        className={`block h-1 w-10 rounded bg-black transition-all duration-300 ${
-          menuShowing ? "-translate-y-[18px] -rotate-45 bg-white" : ""
+        className={`bg-foreground block h-1 w-10 rounded transition-all duration-300 ${
+          menuShowing ? "bg-primary -translate-y-[18px] -rotate-45" : ""
         }`}
       />
     </button>
