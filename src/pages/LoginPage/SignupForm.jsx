@@ -1,5 +1,6 @@
 function SignupForm({ setIsAuthenticated }) {
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
     setIsAuthenticated(true);
   };
 
@@ -14,7 +15,11 @@ function SignupForm({ setIsAuthenticated }) {
       </div>
 
       {/* form */}
-      <form action="" className="mt-6 flex flex-col gap-y-4">
+      <form
+        action=""
+        className="mt-6 flex flex-col gap-y-4"
+        onSubmit={handleSubmit}
+      >
         {/* Full Name */}
         <div className="flex flex-col gap-y-1">
           <label htmlFor="" className="text-sm font-medium">
@@ -121,7 +126,6 @@ function SignupForm({ setIsAuthenticated }) {
         <button
           type="submit"
           className="bg-primary text-primary-foreground hover:bg-primary/90 mt-4 w-full rounded-lg py-2 font-medium transition-colors"
-          onSubmit={handleSubmit}
         >
           Create Account
         </button>
