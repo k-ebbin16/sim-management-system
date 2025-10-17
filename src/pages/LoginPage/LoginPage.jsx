@@ -31,11 +31,11 @@ function LoginPage({ isAuthenticated, setIsAuthenticated }) {
         <div className="relative z-10 flex flex-col justify-center p-16">
           <div className="mb-8 flex items-center gap-3">
             <Logo
-              width={16}
-              height={16}
-              fontSize={"4xl"}
-              bgColor={"accent"}
-              iconColor={"primary"}
+              width="12"
+              height="12"
+              fontSize="3xl"
+              bgColor="accent"
+              iconColor="primary"
             />
             <div>
               <h1 className="text-4xl">SimCard Manager</h1>
@@ -75,11 +75,11 @@ function LoginPage({ isAuthenticated, setIsAuthenticated }) {
             {/* Logo */}
 
             <Logo
-              width={16}
-              height={16}
-              fontSize={"4xl"}
-              bgColor={"primary"}
-              iconColor={"background"}
+              width="16"
+              height="16"
+              fontSize="3xl"
+              bgColor="primary"
+              iconColor="background"
             />
 
             {/* Title */}

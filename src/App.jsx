@@ -1,15 +1,55 @@
 import "./App.css";
 
 import { Route, Routes } from "react-router-dom";
-import { useState } from "react";
 
 import HomePage from "./pages/HomePage/HomePage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import NotFound from "./pages/NotFound/NotFound";
 import ProtectedRoute from "./components/ProtectedRoute";
+import { useState } from "react";
+import { v4 as uuid } from "uuid";
 
 function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(true);
+
+  const navData = [
+    {
+      id: uuid(),
+      title: "Dashboard",
+      link: "/",
+      description: "",
+      icon: "fa-solid fa-house",
+    },
+    {
+      id: uuid(),
+      title: "Student Records",
+      link: "/student-records",
+      description: "Browse all student SIM records",
+      icon: "fa-solid fa-table",
+    },
+    {
+      id: uuid(),
+      title: "Assign SIM Cards",
+      link: "/assign",
+      description: "Filter and Manage SIM assignments",
+      icon: "fa-solid fa-sim-card",
+    },
+    {
+      id: uuid(),
+      title: "System Users",
+      link: "/system-users",
+      description: "View an individual students details",
+      icon: "fa-solid fa-users",
+    },
+    {
+      id: uuid(),
+      name: "",
+      title: "Add Users",
+      link: "/users",
+      description: "Manage system users and permissions",
+      icon: "fa-solid fa-user-plus",
+    },
+  ];
 
   return (
     <Routes>
@@ -17,7 +57,10 @@ function App() {
         path="/"
         element={
           <ProtectedRoute isAuthenticated={isAuthenticated}>
-            <HomePage />
+            <HomePage
+              navData={navData}
+              setIsAuthenticated={setIsAuthenticated}
+            />
           </ProtectedRoute>
         }
       />

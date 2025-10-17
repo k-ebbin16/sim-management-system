@@ -1,11 +1,9 @@
 function Logo({ width, height, fontSize, bgColor, iconColor }) {
   return (
     <div
-      className={`bg-${bgColor} flex h-${height} w-${width} items-center justify-center rounded-lg`}
+      className={`flex items-center justify-center rounded-lg text-center bg-${bgColor} text-${iconColor} h-${height} w-${width}`}
     >
-      <i
-        className={`text-${iconColor} fa-solid fa-sim-card text-center text-${fontSize}`}
-      ></i>
+      <i className={`fa-solid fa-sim-card text-${fontSize}`}></i>
     </div>
   );
 }
