@@ -1,4 +1,4 @@
-function RecentRecords({recentStudents}) {
+function RecentRecords({ recentStudents }) {
   return (
     <section className="border-border bg-card flex w-full flex-col rounded-2xl border-2 p-8">
       <h3 className="mb-2 text-xl font-semibold">Recent Student Records</h3>

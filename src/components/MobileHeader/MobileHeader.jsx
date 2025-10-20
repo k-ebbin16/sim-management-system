@@ -1,5 +1,5 @@
-import Logo from "../Logo";
 import { Spin as Hamburger } from "hamburger-react";
+import Logo from "../Logo";
 
 function MobileHeader({ hamburgerIsOpen, setHamburgerIsOpen }) {
   return (

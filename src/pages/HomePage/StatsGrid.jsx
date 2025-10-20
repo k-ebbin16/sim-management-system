@@ -8,7 +8,7 @@ function StatsGrid({ stats }) {
             className="border-border bg-card flex w-full flex-col rounded-2xl border-2 p-8"
           >
             <div className="flex flex-row items-center justify-between pb-8">
-              <div className="text-muted-foreground text-lg font-medium ">
+              <div className="text-muted-foreground text-lg font-medium">
                 {stat.title}
               </div>
               <i className={`h-5 w-5 ${stat.color} ${stat.icon}`} />
