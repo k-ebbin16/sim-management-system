@@ -1,21 +1,33 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import InputBox from "./InputBox";
 // import { useNavigate } from "react-router-dom";
 import getToken from "../../api/auth";
 
-function LoginForm({ setIsAuthenticated }) {
+function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [authenticationFailed, setauthenticationFailed] = useState(false);
+  const [authenticationFailedReason, setAuthenticationFailedReason] =
+    useState("");
 
-  useEffect(() => {
-    console.log({ email, password, loading });
-  }, [email, password, loading]);
-
-  const handleSubmit = (e) => {
+  const handleAuthSubmit = async (e) => {
     e.preventDefault();
-    setIsAuthenticated(true);
+    setLoading(true);
+
+    try {
+      const tokenObject = await getToken(email, password);
+      console.log(tokenObject);
+
+      setauthenticationFailed(false);
+    } catch (err) {
+      setAuthenticationFailedReason(err?.response?.data?.messages[0]);
+
+      setauthenticationFailed(true);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -29,10 +41,15 @@ function LoginForm({ setIsAuthenticated }) {
       </div>
 
       {/* form */}
+      {authenticationFailed && (
+        <p className="text-destructive mt-6 text-sm lg:text-base">
+          {authenticationFailedReason}!
+        </p>
+      )}
       <form
         action=""
-        className="mt-6 flex flex-col gap-y-4"
-        onSubmit={handleSubmit}
+        className={`${authenticationFailed ? "mt-2" : "mt-6"} flex flex-col gap-y-4`}
+        onSubmit={handleAuthSubmit}
       >
         {/* Email */}
 
@@ -82,7 +99,7 @@ function LoginForm({ setIsAuthenticated }) {
         <button
           type="submit"
           disabled={loading}
-          className={`bg-primary text-primary-foreground hover:bg-primary/90 mt-4 w-full rounded-lg py-2 font-medium transition-colors ${loading ? "bg-secondary text" : ""}`}
+          className={`bg-primary text-primary-foreground mt-4 w-full rounded-lg py-2 font-medium transition-colors ${loading ? "bg-secondary text-secondary-foreground" : "hover:bg-primary/90"}`}
         >
           {loading ? "Logging in..." : "Login"}
         </button>

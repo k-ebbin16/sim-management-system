@@ -6,11 +6,11 @@ import HomePage from "./pages/HomePage/HomePage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import NotFound from "./pages/NotFound/NotFound";
 import ProtectedRoute from "./components/ProtectedRoute";
-import { useState } from "react";
 import { v4 as uuid } from "uuid";
+import useAuthenticate from "./hooks/useAuthenticate";
 
 function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const authenticationObject = useAuthenticate();
 
   const navData = [
     {
@@ -56,21 +56,17 @@ function App() {
       <Route
         path="/"
         element={
-          <ProtectedRoute isAuthenticated={isAuthenticated}>
-            <HomePage
-              navData={navData}
-              setIsAuthenticated={setIsAuthenticated}
-            />
+          <ProtectedRoute
+            isAuthenticated={authenticationObject.isAuthenticated}
+          >
+            <HomePage navData={navData} />
           </ProtectedRoute>
         }
       />
       <Route
         path="/login"
         element={
-          <LoginPage
-            isAuthenticated={isAuthenticated}
-            setIsAuthenticated={setIsAuthenticated}
-          />
+          <LoginPage isAuthenticated={authenticationObject.isAuthenticated} />
         }
       />
 

@@ -12,7 +12,7 @@
   --popover-foreground: #1a1a1a;
   --primary: #1a4d2e;
   --primary-foreground: #ffffff;
-  --secondary: #f8f8f6;
+  --secondary: #f0f7f2;
   --secondary-foreground: #1a4d2e;
   --muted: #f5f5f5;
   --muted-foreground: #666666;
@@ -52,8 +52,8 @@
   --popover-foreground: #e8f0ec;
   --primary: #4a9d6f;
   --primary-foreground: #ffffff;
-  --secondary: #1e3a28;
-  --secondary-foreground: #e8f0ec;
+  --secondary: #1c3424;
+  --secondary-foreground: #b8d4c3;
   --muted: #1a3123;
   --muted-foreground: #a0b8ab;
   --accent: #e0b341;
@@ -200,7 +200,7 @@ html {
 
 [disabled] {
   cursor: not-allowed;
-  opacity: 0.5;
+  /* opacity: 0.5; */
 }
 
 button {

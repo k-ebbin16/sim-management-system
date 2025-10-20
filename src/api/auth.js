@@ -12,13 +12,11 @@ async function getToken(email, password) {
     const data = response.data;
 
     if (!data.isSuccessful) {
-      throw new Error(data.messages?.[0] || "Invalid credentials 😩");
+      throw new Error(data.messages?.[0] || "Invalid credentials");
     }
 
     // store token
     localStorage.setItem("token", data.responseData?.token);
-
-    console.log("Token received:", data.responseData?.token);
     return data.responseData?.token;
   } catch (error) {
     console.error("Token error:", error.response?.data || error.message);

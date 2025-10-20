@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 import LoginForm from "./LoginForm";
 import LoginSwitcher from "./LoginSwitcher";
@@ -6,21 +6,13 @@ import Logo from "../../components/Logo";
 import SignupForm from "./SignupForm";
 import { useNavigate } from "react-router-dom";
 
-function LoginPage({ isAuthenticated, setIsAuthenticated }) {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
-
-  // const [isLogin, setIsLogin] = useState(true);
+function LoginPage({ isAuthenticated }) {
   const navigate = useNavigate();
 
   useEffect(() => {
     if (isAuthenticated) navigate("/");
   }, [isAuthenticated, navigate]);
 
-  // const handleIsLogin = (value) => {
-  //   setIsLogin(value);
-  // };
   return (
     <div className="flex min-h-screen">
       {/* Left Side - Branding */}
@@ -107,7 +99,7 @@ function LoginPage({ isAuthenticated, setIsAuthenticated }) {
             <SignupForm setIsAuthenticated={setIsAuthenticated} />
           )} */}
 
-          <LoginForm setIsAuthenticated={setIsAuthenticated} />
+          <LoginForm />
 
           {/* Footer */}
           <footer className="w-full">
