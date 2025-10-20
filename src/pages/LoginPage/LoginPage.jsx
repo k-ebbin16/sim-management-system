@@ -1,10 +1,10 @@
-import "./LoginPage.css";
+import { useEffect, useState } from "react";
+
 import LoginForm from "./LoginForm";
 import LoginSwitcher from "./LoginSwitcher";
-import SignupForm from "./SignupForm";
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import Logo from "../../components/Logo";
+import SignupForm from "./SignupForm";
+import { useNavigate } from "react-router-dom";
 
 function LoginPage({ isAuthenticated, setIsAuthenticated }) {
   const [isLogin, setIsLogin] = useState(true);
@@ -20,7 +20,7 @@ function LoginPage({ isAuthenticated, setIsAuthenticated }) {
   return (
     <div className="flex min-h-screen">
       {/* Left Side - Branding */}
-      <section className="bg-primary text-primary-foreground relative hidden overflow-hidden lg:flex lg:w-1/2 lg:flex-col lg:items-center lg:justify-center">
+      <section className="bg-primary text-primary-foreground relative hidden overflow-hidden transition-[background-color] duration-100 ease-in-out lg:flex lg:w-1/2 lg:flex-col lg:items-center lg:justify-center">
         <div className="absolute inset-0 opacity-10">
           <img
             src="https://cdn.pyclubs.org/website-storage/club/Umat.jpeg"

@@ -1,16 +1,18 @@
 import Logo from "../Logo";
 import { NavLink } from "react-router-dom";
 
-function SideBar({ navData, setIsAuthenticated }) {
+function SideBar({ navData, setIsAuthenticated, hamburgerIsOpen }) {
   const handleLogout = () => {
     setIsAuthenticated(false);
   };
   return (
-    <aside className="bg-sidebar text-sidebar-foreground fixed flex h-screen w-3/4 max-w-xs -translate-x-full flex-col gap-y-4 transition-transform duration-400 lg:sticky lg:top-0 lg:left-0 lg:w-2/5 lg:translate-x-0">
+    <aside
+      className={`bg-sidebar text-sidebar-foreground fixed z-[999] mt-[80px] flex h-screen w-3/4 max-w-xs flex-col gap-y-4 transition-all duration-300 ease-in-out lg:sticky lg:top-0 lg:left-0 lg:mt-0 lg:w-2/5 lg:translate-x-0 ${hamburgerIsOpen ? "translate-x-0 opacity-100" : "-translate-x-full opacity-0"} lg:opacity-100`}
+    >
       {/* User Info & Logo*/}
       <div className="border-sidebar-border flex flex-col border-b">
         {/* Logo */}
-        <div className="border-sidebar-border flex w-full items-center gap-4 border-b p-6">
+        <div className="border-sidebar-border hidden w-full items-center gap-4 border-b p-6 lg:flex">
           <Logo
             width="12"
             height="12"
