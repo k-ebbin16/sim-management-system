@@ -1,4 +1,5 @@
 import SideBar from "../../components/SideBar/SideBar";
+import Dashboard from "./Dashboard";
 
 function HomePage({ navData, setIsAuthenticated }) {
   return (
@@ -7,7 +8,7 @@ function HomePage({ navData, setIsAuthenticated }) {
       <SideBar navData={navData} setIsAuthenticated={setIsAuthenticated} />
 
       {/* Dashboard */}
-      <main></main>
+      <Dashboard />
     </div>
   );
 }

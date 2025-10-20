@@ -1,7 +1,0 @@
-@import "tailwindcss";
-
-@layer components {
-  .active {
-    @apply text-primary font-semibold;
-  }
-}
