@@ -10,7 +10,7 @@ import { useState } from "react";
 import { v4 as uuid } from "uuid";
 
 function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(true);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const navData = [
     {

@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-/* Use OS-level prefers-color-scheme to switch variables (no JS required) */
+@custom-variant dark (&:is(.dark *));
 
 :root {
   --font-size: 16px;
@@ -43,54 +43,43 @@
   --sidebar-ring: #d4af37;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    /* Subtle green-tinted dark theme (option 2) — brand-harmonized */
-    --background: #071717;
-    /* subtle green-teal dark */
-    --foreground: #f6fff9;
-    /* bright, slightly warm text */
-    --card: #04120f;
-    /* darker card surface with green undertone */
-    --card-foreground: #f6fff9;
-    --popover: #04120f;
-    --popover-foreground: #f6fff9;
-    /* Slightly brightened primary for better contrast on dark surfaces */
-    --primary: #2a7040;
-    /* tuned green for dark mode */
-    --primary-foreground: #ffffff;
-    --secondary: #f8f8f6;
-    /* keep secondary light for contrast */
-    --secondary-foreground: #1a4d2e;
-    --muted: #071614;
-    --muted-foreground: #c6dad1;
-    /* Slightly deeper accent to read better against dark backgrounds */
-    --accent: #caa231;
-    --accent-foreground: #121212;
-    --destructive: #d4183d;
-    --destructive-foreground: #ffffff;
-    --border: rgba(255, 255, 255, 0.16);
-    --input: rgba(255, 255, 255, 0.08);
-    --input-background: rgba(20, 35, 30, 0.6);
-    /* subtle green-tinted dark surface */
-    --ring: #2f7a3f;
-    --font-weight-medium: 500;
-    --font-weight-normal: 400;
-    --chart-1: #1a4d2e;
-    --chart-2: #d4af37;
-    --chart-3: #4a7c59;
-    --chart-4: #f0c75e;
-    --chart-5: #2d6a3f;
-    --sidebar: #072a1e;
-    --sidebar-foreground: #ffffff;
-    --sidebar-primary: #d4af37;
-    --sidebar-primary-foreground: #1a1a1a;
-    --sidebar-accent: #2d6a3f;
-    --sidebar-accent-foreground: #ffffff;
-    --sidebar-border: rgba(255, 255, 255, 0.08);
-    --border: rgba(255, 255, 255, 0.18);
-    --sidebar-ring: #d4af37;
-  }
+.dark {
+  --background: #0d1f15;
+  --foreground: #e8f0ec;
+  --card: #142a1d;
+  --card-foreground: #e8f0ec;
+  --popover: #142a1d;
+  --popover-foreground: #e8f0ec;
+  --primary: #4a9d6f;
+  --primary-foreground: #ffffff;
+  --secondary: #1e3a28;
+  --secondary-foreground: #e8f0ec;
+  --muted: #1a3123;
+  --muted-foreground: #a0b8ab;
+  --accent: #e0b341;
+  --accent-foreground: #0d1f15;
+  --destructive: #d4183d;
+  --destructive-foreground: #ffffff;
+  --border: rgba(74, 157, 111, 0.2);
+  --input: transparent;
+  --input-background: #1a3123;
+  --switch-background: #2d4a38;
+  --font-weight-medium: 500;
+  --font-weight-normal: 400;
+  --ring: #4a9d6f;
+  --chart-1: #4a9d6f;
+  --chart-2: #e0b341;
+  --chart-3: #66b88a;
+  --chart-4: #f5d97a;
+  --chart-5: #357a56;
+  --sidebar: #0f2418;
+  --sidebar-foreground: #e8f0ec;
+  --sidebar-primary: #e0b341;
+  --sidebar-primary-foreground: #0d1f15;
+  --sidebar-accent: #1e3a28;
+  --sidebar-accent-foreground: #e8f0ec;
+  --sidebar-border: rgba(74, 157, 111, 0.15);
+  --sidebar-ring: #e0b341;
 }
 
 @theme inline {
@@ -137,7 +126,6 @@
 @layer base {
   * {
     @apply border-border outline-ring/50;
-    /* font-family: 'Poppins', sans-serif; */
     font-family: "Open Sans", sans-serif;
   }
 

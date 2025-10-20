@@ -1,6 +1,18 @@
+import { useEffect, useState } from "react";
+
+import InputBox from "./InputBox";
 // import { useNavigate } from "react-router-dom";
+import getToken from "../../api/auth";
 
 function LoginForm({ setIsAuthenticated }) {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    console.log({ email, password, loading });
+  }, [email, password, loading]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     setIsAuthenticated(true);
@@ -23,40 +35,27 @@ function LoginForm({ setIsAuthenticated }) {
         onSubmit={handleSubmit}
       >
         {/* Email */}
-        <div className="flex flex-col gap-y-1">
-          <label htmlFor="" className="text-sm font-medium">
-            Email Address
-          </label>
-          <div className="border-muted-foreground/20 focus-within:border-primary hover:border-primary bg-input-background flex items-center gap-4 rounded-lg border px-4 py-1.5 transition-all">
-            <i className="fa-solid fa-envelope"></i>
-            <input
-              className="text-muted-foreground w-full transition-all outline-none placeholder:text-sm placeholder:font-light"
-              type="email"
-              name=""
-              id=""
-              placeholder="admin@umat.edu.gh"
-              required
-            />
-          </div>
-        </div>
+
+        <InputBox
+          icon="fa-solid fa-envelope"
+          label="Email Address"
+          placeholder="admin@umat.edu.gh"
+          type="email"
+          isRequired={true}
+          value={email}
+          onChangeFn={setEmail}
+        />
 
         {/* Password */}
-        <div className="flex flex-col gap-y-1">
-          <label htmlFor="" className="text-sm font-medium">
-            Password
-          </label>
-          <div className="border-muted-foreground/20 focus-within:border-primary hover:border-primary bg-input-background flex items-center gap-4 rounded-lg border px-4 py-1.5 transition-all">
-            <i className="fa-solid fa-lock"></i>
-            <input
-              className="text-muted-foreground w-full transition-all outline-none placeholder:text-sm placeholder:font-light"
-              type="password"
-              name=""
-              id=""
-              placeholder="••••••••"
-              required
-            />
-          </div>
-        </div>
+        <InputBox
+          icon="fa-solid fa-lock"
+          label="Password"
+          placeholder="••••••••"
+          type="password"
+          isRequired={true}
+          value={password}
+          onChangeFn={setPassword}
+        />
 
         {/* Remember me & Forgot Password */}
         <div className="flex items-center justify-between text-sm font-medium sm:text-[16px]">
@@ -82,9 +81,10 @@ function LoginForm({ setIsAuthenticated }) {
         {/* Submit Button */}
         <button
           type="submit"
-          className="bg-primary text-primary-foreground hover:bg-primary/90 mt-4 w-full rounded-lg py-2 font-medium transition-colors"
+          disabled={loading}
+          className={`bg-primary text-primary-foreground hover:bg-primary/90 mt-4 w-full rounded-lg py-2 font-medium transition-colors ${loading ? "bg-secondary text" : ""}`}
         >
-          Login
+          {loading ? "Logging in..." : "Login"}
         </button>
       </form>
     </div>

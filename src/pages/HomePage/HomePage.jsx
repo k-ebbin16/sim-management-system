@@ -13,6 +13,12 @@ function HomePage({ navData, setIsAuthenticated }) {
         hamburgerIsOpen={hamburgerIsOpen}
         setHamburgerIsOpen={setHamburgerIsOpen}
       />
+      <div
+        className={`bg-accent/20 fixed top-0 left-0 z-10 min-h-screen w-screen transition duration-300 ${hamburgerIsOpen ? "opacity-100 backdrop-blur-xs" : "opacity-0 backdrop-blur-none"}`}
+        onClick={(e) => {
+          setHamburgerIsOpen(false);
+        }}
+      ></div>
 
       {/* Navigation */}
       <SideBar
