@@ -6,7 +6,7 @@ function SideBar({ navData, setIsAuthenticated }) {
     setIsAuthenticated(false);
   };
   return (
-    <aside className="bg-sidebar text-sidebar-foreground fixed flex h-screen w-3/4 max-w-xs -translate-x-full flex-col gap-y-4 transition transition-transform duration-400 lg:sticky lg:top-0 lg:left-0 lg:w-2/5 lg:translate-x-0">
+    <aside className="bg-sidebar text-sidebar-foreground fixed flex h-screen w-3/4 max-w-xs -translate-x-full flex-col gap-y-4 transition-transform duration-400 lg:sticky lg:top-0 lg:left-0 lg:w-2/5 lg:translate-x-0">
       {/* User Info & Logo*/}
       <div className="border-sidebar-border flex flex-col border-b">
         {/* Logo */}
