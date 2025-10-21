@@ -2,15 +2,16 @@ import "./App.css";
 
 import { Route, Routes } from "react-router-dom";
 
+import AuthContext from "./context/AuthContext";
 import HomePage from "./pages/HomePage/HomePage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import NotFound from "./pages/NotFound/NotFound";
 import ProtectedRoute from "./components/ProtectedRoute";
+import { useContext } from "react";
 import { v4 as uuid } from "uuid";
-import useAuthenticate from "./hooks/useAuthenticate";
 
 function App() {
-  const authenticationObject = useAuthenticate();
+  const { isAuthenticated } = useContext(AuthContext);
 
   const navData = [
     {
@@ -56,18 +57,14 @@ function App() {
       <Route
         path="/"
         element={
-          <ProtectedRoute
-            isAuthenticated={authenticationObject.isAuthenticated}
-          >
+          <ProtectedRoute isAuthenticated={isAuthenticated}>
             <HomePage navData={navData} />
           </ProtectedRoute>
         }
       />
       <Route
         path="/login"
-        element={
-          <LoginPage isAuthenticated={authenticationObject.isAuthenticated} />
-        }
+        element={<LoginPage isAuthenticated={isAuthenticated} />}
       />
 
       <Route path="*" element={<NotFound />} />

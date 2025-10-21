@@ -1,9 +1,8 @@
-import { useEffect } from "react";
-
 import LoginForm from "./LoginForm";
 import LoginSwitcher from "./LoginSwitcher";
 import Logo from "../../components/Logo";
 import SignupForm from "./SignupForm";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 function LoginPage({ isAuthenticated }) {

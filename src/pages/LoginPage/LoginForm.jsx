@@ -1,14 +1,17 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 
+import AuthContext from "../../context/AuthContext";
 import InputBox from "./InputBox";
-// import { useNavigate } from "react-router-dom";
-import getToken from "../../api/auth";
+import { useNavigate } from "react-router-dom";
 
 function LoginForm() {
+  const { login } = useContext(AuthContext);
+  const navigate = useNavigate();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-  const [authenticationFailed, setauthenticationFailed] = useState(false);
+  const [authenticationFailed, setAuthenticationFailed] = useState(false);
   const [authenticationFailedReason, setAuthenticationFailedReason] =
     useState("");
 
@@ -17,14 +20,17 @@ function LoginForm() {
     setLoading(true);
 
     try {
-      const tokenObject = await getToken(email, password);
-      console.log(tokenObject);
-
-      setauthenticationFailed(false);
+      const success = await login(email, password);
+      if (success.isSuccessful) {
+        setAuthenticationFailed(false);
+        navigate("/");
+      } else {
+        setAuthenticationFailed(true);
+        setAuthenticationFailedReason(success.message);
+      }
     } catch (err) {
-      setAuthenticationFailedReason(err?.response?.data?.messages[0]);
-
-      setauthenticationFailed(true);
+      setAuthenticationFailed(true);
+      console.log(err);
     } finally {
       setLoading(false);
     }

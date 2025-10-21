@@ -1,11 +1,11 @@
+import { useEffect, useState } from "react";
+
 import Logo from "../Logo";
+import LogoutBtn from "./LogoutBtn";
 import { NavLink } from "react-router-dom";
-import { useState, useEffect } from "react";
-import useAuthenticate from "../../hooks/useAuthenticate";
 
 function SideBar({ navData, hamburgerIsOpen }) {
   const [isDarkMode, setIsDarkMode] = useState(false);
-  const authenticationObject = useAuthenticate();
 
   useEffect(() => {
     // Check for saved theme preference or default to light mode
@@ -32,11 +32,6 @@ function SideBar({ navData, hamburgerIsOpen }) {
     }
   };
 
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-
-    authenticationObject.setToken();
-  };
   return (
     <aside
       className={`bg-sidebar text-sidebar-foreground fixed z-[999] flex h-screen w-3/4 max-w-xs flex-col gap-y-4 pt-[80px] transition-all duration-300 ease-in-out lg:sticky lg:top-0 lg:left-0 lg:w-2/5 lg:translate-x-0 lg:pt-0 ${hamburgerIsOpen ? "translate-x-0 opacity-100" : "-translate-x-full opacity-0"} lg:opacity-100`}
@@ -95,9 +90,9 @@ function SideBar({ navData, hamburgerIsOpen }) {
         <div className="flex items-center justify-between px-4 py-2">
           <div className="flex items-center gap-2">
             {isDarkMode ? (
-              <i class="fa-solid fa-moon"></i>
+              <i className="fa-solid fa-moon"></i>
             ) : (
-              <i class="fa-solid fa-sun"></i>
+              <i className="fa-solid fa-sun"></i>
             )}
             <label
               htmlFor="theme-toggle"
@@ -124,13 +119,7 @@ function SideBar({ navData, hamburgerIsOpen }) {
         </div>
 
         {/* Logout Button */}
-        <div
-          className="hover:bg-sidebar-accent/50 text-sidebar-foreground transition-background mt-3 flex items-center gap-6 rounded-md px-4 py-6 text-xl font-medium transition duration-400"
-          onClick={handleLogout}
-        >
-          <i className="fa-solid fa-right-from-bracket"></i>
-          <button className="w-full text-left">Logout</button>
-        </div>
+        <LogoutBtn />
       </div>
     </aside>
   );
