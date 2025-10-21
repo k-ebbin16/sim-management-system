@@ -1,37 +1,9 @@
-import { useEffect, useState } from "react";
-
 import Logo from "../Logo";
 import LogoutBtn from "./LogoutBtn";
 import { NavLink } from "react-router-dom";
+import ThemeToggle from "./ThemeToggle";
 
 function SideBar({ navData, hamburgerIsOpen }) {
-  const [isDarkMode, setIsDarkMode] = useState(false);
-
-  useEffect(() => {
-    // Check for saved theme preference or default to light mode
-    const savedTheme = localStorage.getItem("theme");
-    const prefersDark = window.matchMedia(
-      "(prefers-color-scheme: dark)",
-    ).matches;
-    const shouldBeDark = savedTheme === "dark" || (!savedTheme && prefersDark);
-
-    setIsDarkMode(shouldBeDark);
-    if (shouldBeDark) {
-      document.documentElement.classList.add("dark");
-    }
-  }, []);
-
-  const toggleTheme = (checked) => {
-    setIsDarkMode(checked);
-    if (checked) {
-      document.documentElement.classList.add("dark");
-      localStorage.setItem("theme", "dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-      localStorage.setItem("theme", "light");
-    }
-  };
-
   return (
     <aside
       className={`bg-sidebar text-sidebar-foreground fixed z-[999] flex h-screen w-3/4 max-w-xs flex-col gap-y-4 pt-[80px] transition-all duration-300 ease-in-out lg:sticky lg:top-0 lg:left-0 lg:w-2/5 lg:translate-x-0 lg:pt-0 ${hamburgerIsOpen ? "translate-x-0 opacity-100" : "-translate-x-full opacity-0"} lg:opacity-100`}
@@ -87,36 +59,7 @@ function SideBar({ navData, hamburgerIsOpen }) {
 
       <div className="w-full px-8 pb-8">
         {/* Theme Toggler */}
-        <div className="flex items-center justify-between px-4 py-2">
-          <div className="flex items-center gap-2">
-            {isDarkMode ? (
-              <i className="fa-solid fa-moon"></i>
-            ) : (
-              <i className="fa-solid fa-sun"></i>
-            )}
-            <label
-              htmlFor="theme-toggle"
-              className="text-sidebar-foreground cursor-pointer text-sm"
-            >
-              {`${isDarkMode ? "Dark" : "Light"}`} Mode
-            </label>
-          </div>
-          <button
-            id="theme-toggle"
-            role="switch"
-            aria-checked={isDarkMode}
-            onClick={() => toggleTheme(!isDarkMode)}
-            className={`focus-visible:ring-accent focus-visible:ring-offset-sidebar relative inline-flex h-[1.15rem] w-8 shrink-0 items-center rounded-full border border-transparent transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none ${
-              isDarkMode ? "bg-primary" : "bg-switch-background"
-            }`}
-          >
-            <span
-              className={`bg-card pointer-events-none block size-4 rounded-full transition-transform ${
-                isDarkMode ? "translate-x-[calc(100%-2px)]" : "translate-x-0"
-              }`}
-            />
-          </button>
-        </div>
+        <ThemeToggle />
 
         {/* Logout Button */}
         <LogoutBtn />
