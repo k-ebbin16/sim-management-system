@@ -1,9 +1,14 @@
-function Logo({ width, height, fontSize, bgColor, iconColor }) {
+import { cn } from "../utils/util";
+
+function Logo({ className }) {
   return (
     <div
-      className={`flex items-center justify-center rounded-lg text-center bg-${bgColor} text-${iconColor} h-${height} w-${width}`}
+      className={cn(
+        className,
+        "flex items-center justify-center rounded-lg text-center",
+      )}
     >
-      <i className={`fa-solid fa-sim-card text-${fontSize}`}></i>
+      <i className="fa-solid fa-sim-card"></i>
     </div>
   );
 }

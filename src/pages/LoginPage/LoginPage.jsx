@@ -25,13 +25,7 @@ function LoginPage({ isAuthenticated }) {
         </div>
         <div className="relative z-10 flex flex-col justify-center p-16">
           <div className="mb-8 flex items-center gap-3">
-            <Logo
-              width="12"
-              height="12"
-              fontSize="3xl"
-              bgColor="accent"
-              iconColor="primary"
-            />
+            <Logo className="bg-accent text-primary h-12 w-12 text-3xl" />
             <div>
               <h1 className="text-4xl">SimCard Manager</h1>
               <p className="text-primary-foreground/80">
@@ -70,6 +64,7 @@ function LoginPage({ isAuthenticated }) {
             {/* Logo */}
 
             <Logo
+              className="bg-accent text-primary h-16 w-16 text-3xl"
               width="16"
               height="16"
               fontSize="3xl"

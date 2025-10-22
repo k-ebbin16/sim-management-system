@@ -14,13 +14,7 @@ function SideBar({ navData, hamburgerIsOpen }) {
       <div className="border-sidebar-border flex flex-col border-b">
         {/* Logo */}
         <div className="border-sidebar-border hidden w-full items-center gap-4 border-b p-6 lg:flex">
-          <Logo
-            width="12"
-            height="12"
-            fontSize="3xl"
-            bgColor="accent"
-            iconColor="primary"
-          />
+          <Logo className="bg-accent text-primary h-12 w-12 text-3xl" />
           <h1 className="text-accent text-2xl">SimCard Manager</h1>
         </div>
         {/* User Info */}
@@ -38,7 +32,7 @@ function SideBar({ navData, hamburgerIsOpen }) {
       </div>
 
       {/* Nav Box */}
-      <nav className="border-sidebar-border flex flex-1 w-full flex-col gap-y-2 border-b p-4">
+      <nav className="border-sidebar-border flex w-full flex-1 flex-col gap-y-2 border-b p-4">
         {navData.map(({ id, title, link, icon }) => (
           <NavLink
             to={link}

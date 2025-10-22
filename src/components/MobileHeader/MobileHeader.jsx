@@ -12,13 +12,7 @@ function MobileHeader({ hamburgerIsOpen, setHamburgerIsOpen }) {
       />
 
       <div className="flex w-full items-center justify-end gap-4">
-        <Logo
-          width="10"
-          height="10"
-          fontSize="2xl"
-          bgColor="accent"
-          iconColor="primary"
-        />
+        <Logo className="bg-accent text-primary h-10 w-10 text-2xl" />
         <h1 className="text-accent text-xl">SimCard Manager</h1>
       </div>
     </div>
