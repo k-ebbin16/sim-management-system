@@ -2,6 +2,7 @@ import Card from "../../components/Card/Card";
 import { useNavigate } from "react-router-dom";
 import CardContent from "../../components/Card/CardContent";
 import Input from "../../components/Input";
+import Table from "../../components/Table/Table";
 
 function AllUsersTable() {
   const navigate = useNavigate();
@@ -28,13 +29,13 @@ function AllUsersTable() {
         </div>
 
         {/* Table Container*/}
-        <CardContent>
+        <CardContent className="flex-col">
           {/* Search Box */}
           <div className="w-full">
-            <div className="relative">
+            <div className="relative w-full">
               <Input
                 placeholder="Search users by name, email, or role..."
-                className="pl-10"
+                className="pl-10 w-full"
                 icon="fa-solid fa-magnifying-glass"
                 type="text"
               />
@@ -42,7 +43,9 @@ function AllUsersTable() {
           </div>
 
           {/* Table */}
-          
+          <Table>
+
+          </Table>
         </CardContent>
       </Card>
     </section>
