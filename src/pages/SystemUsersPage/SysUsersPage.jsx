@@ -1,16 +1,15 @@
-import Dashboard from "./Dashboard";
 import NavigationContainer from "../../components/Navigation/NavigationContainer";
 
-function HomePage({ navData }) {
+function SysUsersPage({ navData }) {
   return (
     <div className="bg-background w- flex min-h-dvh">
       {/* Navigation */}
       <NavigationContainer navData={navData} />
 
-      {/* Dashboard */}
-      <Dashboard />
+      {/* Content Section */}
+      {/* <Dashboard /> */}
     </div>
   );
 }
 
-export default HomePage;
+export default SysUsersPage;

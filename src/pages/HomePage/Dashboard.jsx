@@ -71,7 +71,7 @@ function Dashboard() {
     },
   ];
   return (
-    <main className="mt-[80px] min-h-screen flex-1 p-6 lg:mt-0">
+    <main className="mt-[80px] min-h-dvh flex-1 p-6 lg:mt-0">
       {/* Hero Section */}
       <section className="bg-primary text-primary-foreground relative mb-8 overflow-hidden rounded-lg">
         <div className="absolute inset-0 opacity-10">

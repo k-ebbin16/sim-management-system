@@ -13,7 +13,7 @@ function LoginPage({ isAuthenticated }) {
   }, [isAuthenticated, navigate]);
 
   return (
-    <div className="flex min-h-screen">
+    <div className="flex min-h-dvh">
       {/* Left Side - Branding */}
       <section className="bg-primary text-primary-foreground relative hidden overflow-hidden transition-[background-color] duration-100 ease-in-out lg:flex lg:w-1/2 lg:flex-col lg:items-center lg:justify-center">
         <div className="absolute inset-0 opacity-10">

@@ -6,7 +6,7 @@ import ThemeToggle from "./ThemeToggle";
 function SideBar({ navData, hamburgerIsOpen }) {
   return (
     <aside
-      className={`bg-sidebar text-sidebar-foreground fixed z-[999] flex h-screen w-3/4 max-w-xs flex-col gap-y-4 pt-[80px] transition-all duration-300 ease-in-out lg:sticky lg:top-0 lg:left-0 lg:w-2/5 lg:translate-x-0 lg:pt-0 ${hamburgerIsOpen ? "translate-x-0 opacity-100" : "-translate-x-full opacity-0"} lg:opacity-100`}
+      className={`bg-sidebar text-sidebar-foreground fixed z-[999] flex h-dvh w-3/4 max-w-xs flex-col gap-y-4 pt-[80px] transition-all duration-300 ease-in-out lg:sticky lg:top-0 lg:left-0 lg:w-2/5 lg:translate-x-0 lg:pt-0 ${hamburgerIsOpen ? "translate-x-0 opacity-100" : "-translate-x-full opacity-0"} lg:opacity-100`}
     >
       {/* Backdrop */}
 
@@ -38,7 +38,7 @@ function SideBar({ navData, hamburgerIsOpen }) {
       </div>
 
       {/* Nav Box */}
-      <nav className="border-sidebar-border flex w-full flex-1 flex-col gap-y-2 border-b p-4">
+      <nav className="border-sidebar-border flex flex-1 w-full flex-col gap-y-2 border-b p-4">
         {navData.map(({ id, title, link, icon }) => (
           <NavLink
             to={link}
