@@ -41,8 +41,12 @@ function RecentRecords() {
 
   return (
     <Card>
-      <h3 className="mb-2 text-xl font-semibold">Recent Student Records</h3>
-      <p>Latest student registrations and SIM card assignments</p>
+      <div>
+        <h3 className="mb-2 text-xl font-semibold">Recent Student Records</h3>
+        <p className="text-muted-foreground">
+          Latest student registrations and SIM card assignments
+        </p>
+      </div>
 
       {/* Placeholder for recent activities table or list */}
       <div className="mt-8 flex w-full flex-col gap-4">

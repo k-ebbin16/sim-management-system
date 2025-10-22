@@ -1,4 +1,5 @@
 import NavigationContainer from "../../components/Navigation/NavigationContainer";
+import AllUsersTable from "./AllUsersTable";
 import UserStatsGrid from "./UserStatsGrid";
 
 function SysUsersPage({ navData }) {
@@ -23,7 +24,7 @@ function SysUsersPage({ navData }) {
         <UserStatsGrid />
 
         {/* Users Table */}
-        <section></section>
+        <AllUsersTable />
       </main>
     </div>
   );
