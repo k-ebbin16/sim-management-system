@@ -2,74 +2,6 @@ import RecentRecords from "./RecentRecords";
 import StatsGrid from "./StatsGrid";
 
 function Dashboard() {
-  const stats = [
-    {
-      title: "Total Students",
-      icon: "fa-solid fa-users",
-      color: "text-primary",
-      value: 1247,
-      description: "Active student records",
-    },
-    {
-      title: "SIM Cards Issued",
-      icon: "fa-solid fa-circle-check",
-      color: "text-accent",
-      value: 892,
-      description: "Currently assigned",
-    },
-    {
-      title: "Available SIMs",
-      icon: "fa-solid fa-sim-card",
-      color: "text-primary",
-      value: 355,
-      description: "Ready for assignment",
-    },
-    {
-      title: "Pending Requests",
-      icon: "fa-solid fa-circle-exclamation",
-      color: "text-accent",
-      value: 23,
-      description: "Awaiting processing",
-    },
-  ];
-
-  const recentStudents = [
-    {
-      id: "STU001",
-      name: "Amara Okafor",
-      department: "Computer Engineering",
-      status: "Active",
-      simCard: "SIM-2023-001",
-    },
-    {
-      id: "STU002",
-      name: "Chinedu Eze",
-      department: "Electrical Engineering",
-      status: "Active",
-      simCard: "SIM-2023-002",
-    },
-    {
-      id: "STU003",
-      name: "Ngozi Adewale",
-      department: "Mechanical Engineering",
-      status: "Pending",
-      simCard: "-",
-    },
-    {
-      id: "STU004",
-      name: "Oluwaseun Balogun",
-      department: "Civil Engineering",
-      status: "Active",
-      simCard: "SIM-2023-003",
-    },
-    {
-      id: "STU005",
-      name: "Fatima Hassan",
-      department: "Chemical Engineering",
-      status: "Active",
-      simCard: "SIM-2023-004",
-    },
-  ];
   return (
     <main className="mt-[80px] min-h-dvh flex-1 p-6 lg:mt-0">
       {/* Hero Section */}
@@ -93,10 +25,10 @@ function Dashboard() {
       </section>
 
       {/* Stats Grid */}
-      <StatsGrid stats={stats} />
+      <StatsGrid />
 
       {/* Recent Activities */}
-      <RecentRecords recentStudents={recentStudents} />
+      <RecentRecords />
     </main>
   );
 }

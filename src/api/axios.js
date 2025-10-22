@@ -6,13 +6,11 @@ const api = axios.create({
   baseURL: API_BASE_URL,
 });
 
-api.interceptors.request.use(
-  (config) => {
-    const token = localStorage.getItem("token");
-    if (token) config.headers.Authorization = `Bearer ${token}`;
-    return config;
-  }
-);
+api.interceptors.request.use((config) => {
+  const token = localStorage.getItem("token");
+  if (token) config.headers.Authorization = `Bearer ${token}`;
+  return config;
+});
 
 let isRefreshing = false;
 let failedQueue = [];
@@ -75,6 +73,5 @@ api.interceptors.response.use(
     return Promise.reject(error);
   },
 );
-
 
 export default api;

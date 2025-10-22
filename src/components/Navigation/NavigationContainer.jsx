@@ -1,6 +1,6 @@
-import BackDrop from "../MobileHeader/BackDrop";
-import MobileHeader from "../MobileHeader/MobileHeader";
-import SideBar from "../SideBar/SideBar";
+import BackDrop from "./MobileHeader/BackDrop";
+import MobileHeader from "./MobileHeader/MobileHeader";
+import SideBar from "./SideBar/SideBar";
 import { useState } from "react";
 
 function NavigationContainer({ navData }) {

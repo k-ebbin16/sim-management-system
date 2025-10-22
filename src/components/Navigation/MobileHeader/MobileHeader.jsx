@@ -1,5 +1,5 @@
 import { Spin as Hamburger } from "hamburger-react";
-import Logo from "../Logo";
+import Logo from "../../Logo";
 
 function MobileHeader({ hamburgerIsOpen, setHamburgerIsOpen }) {
   return (
@@ -12,8 +12,10 @@ function MobileHeader({ hamburgerIsOpen, setHamburgerIsOpen }) {
       />
 
       <div className="flex w-full items-center justify-end gap-4">
-        <Logo className="bg-accent text-primary h-10 w-10 text-2xl" />
-        <h1 className="text-accent text-xl">SimCard Manager</h1>
+        <Logo
+          className="bg-accent text-primary h-10 w-10 text-2xl"
+          textSize="text-xl"
+        />
       </div>
     </div>
   );

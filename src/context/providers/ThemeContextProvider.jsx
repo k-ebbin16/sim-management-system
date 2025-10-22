@@ -27,7 +27,7 @@ const ThemeProvider = ({ children }) => {
   // Toggle function
   const toggleTheme = () =>
     setTheme((prev) => (prev === "light" ? "dark" : "light"));
-  
+
   // useEffect(() => {
   //   console.log(theme);
   // }, [theme]);

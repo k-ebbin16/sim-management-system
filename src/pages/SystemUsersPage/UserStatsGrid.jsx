@@ -1,5 +1,6 @@
 import Card from "../../components/Card/Card";
 import CardContent from "../../components/Card/CardContent";
+import { cn } from "../../utils/util";
 
 function UserStatsGrid() {
   const userRoles = [
@@ -17,6 +18,7 @@ function UserStatsGrid() {
       roleName: "SuperAdmin",
       roleDescription: "SuperAdmin Role.",
       totalNumberOfUsers: 2,
+      iconColor: "text-accent/50",
     },
     {
       roleName: "TelecelAdministrator",
@@ -25,20 +27,23 @@ function UserStatsGrid() {
     },
   ];
   return (
-    <section className="mb-8 grid grid-cols-1 gap-6 max-[1440px]:grid-cols-2 max-lg:grid-cols-2 max-sm:grid-cols-1 min-[1440px]:grid-cols-4">
+    <section className="mb-6 grid grid-cols-1 gap-4 md:grid-cols-2 2xl:grid-cols-4">
       {userRoles.map((role, index) => (
-        <Card
-          key={index}
-        >
-          <CardContent className="pt-6">
-            <div className="flex items-center justify-between">
+        <Card key={index}>
+          <CardContent className="w-full p-0">
+            <div className="flex w-full items-center justify-between">
               <div>
-                <p className="text-muted-foreground text-sm">Total Users</p>
+                <p className="text-muted-foreground text-base">{`${role.roleName}s`}</p>
                 <p className="text-primary text-2xl">
                   {role.totalNumberOfUsers}
                 </p>
               </div>
-              <i className="fa-solid fa-shield text-primary/30 h-8 w-8"></i>
+              <i
+                className={cn(
+                  "fa-solid fa-shield text-primary/30 h-8 w-8 text-3xl",
+                  role.iconColor,
+                )}
+              ></i>
             </div>
           </CardContent>
         </Card>

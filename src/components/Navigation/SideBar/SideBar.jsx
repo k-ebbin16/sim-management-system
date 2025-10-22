@@ -1,4 +1,4 @@
-import Logo from "../Logo";
+import Logo from "../../Logo";
 import LogoutBtn from "./LogoutBtn";
 import { NavLink } from "react-router-dom";
 import ThemeToggle from "./ThemeToggle";
@@ -15,7 +15,6 @@ function SideBar({ navData, hamburgerIsOpen }) {
         {/* Logo */}
         <div className="border-sidebar-border hidden w-full items-center gap-4 border-b p-6 lg:flex">
           <Logo className="bg-accent text-primary h-12 w-12 text-3xl" />
-          <h1 className="text-accent text-2xl">SimCard Manager</h1>
         </div>
         {/* User Info */}
         <div className="flex items-center gap-x-4 p-6">

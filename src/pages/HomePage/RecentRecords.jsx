@@ -1,4 +1,42 @@
-function RecentRecords({ recentStudents }) {
+function RecentRecords() {
+  const recentStudents = [
+    {
+      id: "STU001",
+      name: "Amara Okafor",
+      department: "Computer Engineering",
+      status: "Active",
+      simCard: "SIM-2023-001",
+    },
+    {
+      id: "STU002",
+      name: "Chinedu Eze",
+      department: "Electrical Engineering",
+      status: "Active",
+      simCard: "SIM-2023-002",
+    },
+    {
+      id: "STU003",
+      name: "Ngozi Adewale",
+      department: "Mechanical Engineering",
+      status: "Pending",
+      simCard: "-",
+    },
+    {
+      id: "STU004",
+      name: "Oluwaseun Balogun",
+      department: "Civil Engineering",
+      status: "Active",
+      simCard: "SIM-2023-003",
+    },
+    {
+      id: "STU005",
+      name: "Fatima Hassan",
+      department: "Chemical Engineering",
+      status: "Active",
+      simCard: "SIM-2023-004",
+    },
+  ];
+
   return (
     <section className="border-border bg-card flex w-full flex-col rounded-2xl border-2 p-8">
       <h3 className="mb-2 text-xl font-semibold">Recent Student Records</h3>

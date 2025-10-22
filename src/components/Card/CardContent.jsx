@@ -1,6 +1,6 @@
 import { cn } from "../../utils/util";
 
-function CardContent({ children, className, ...props }) {
+function CardContent({ children, className = "", ...props }) {
   return (
     <div
       className={cn(
