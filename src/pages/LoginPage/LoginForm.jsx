@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 
 import AuthContext from "../../context/AuthContext";
-import InputBox from "./InputBox";
+import Input from "../../components/Input";
 import { useNavigate } from "react-router-dom";
 
 function LoginForm() {
@@ -59,30 +59,33 @@ function LoginForm() {
       >
         {/* Email */}
 
-        <InputBox
+        <Input
           icon="fa-solid fa-envelope"
-          label="Email Address"
           placeholder="admin@umat.edu.gh"
           type="email"
-          isRequired={true}
+          required
           value={email}
-          onChangeFn={setEmail}
+          onChange={(e) => {
+            setEmail(e.target.value);
+          }}
+          className="pl-10"
         />
 
         {/* Password */}
-        <InputBox
+        <Input
           icon="fa-solid fa-lock"
-          label="Password"
           placeholder="••••••••"
           type="password"
-          isRequired={true}
+          required
           value={password}
-          onChangeFn={setPassword}
+          onChange={(e) => {
+            setPassword(e.target.value);
+          }}
+          className="pl-10"
         />
 
         {/* Remember me & Forgot Password */}
-        <div className="flex items-center justify-between text-sm font-medium sm:text-[16px]">
-          {/* Remember Me */}
+        {/* <div className="flex items-center justify-between text-sm font-medium sm:text-[16px]">
           <div className="flex w-full items-center gap-2">
             <input
               type="checkbox"
@@ -93,13 +96,12 @@ function LoginForm() {
             <label htmlFor="">Remember Me</label>
           </div>
 
-          {/* Forgot Password */}
           <div className="w-full text-right">
             <a href="#" className="text-primary hover:underline">
               Forgot Password?
             </a>
           </div>
-        </div>
+        </div> */}
 
         {/* Submit Button */}
         <button

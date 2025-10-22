@@ -1,6 +1,6 @@
 import { cn } from "../utils/util";
 
-function Logo({ className = "", textSize = "" }) {
+function Logo({ className = "", textSize = "", showText = true }) {
   return (
     <>
       <div
@@ -11,7 +11,11 @@ function Logo({ className = "", textSize = "" }) {
       >
         <i className="fa-solid fa-sim-card"></i>
       </div>
-      <h1 className={cn("text-accent text-2xl", textSize)}>SimCard Manager</h1>
+      {showText && (
+        <h1 className={cn("text-accent text-2xl", textSize)}>
+          SimCard Manager
+        </h1>
+      )}
     </>
   );
 }

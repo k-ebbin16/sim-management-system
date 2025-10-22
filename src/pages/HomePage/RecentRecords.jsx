@@ -1,3 +1,5 @@
+import Card from "../../components/Card/Card";
+
 function RecentRecords() {
   const recentStudents = [
     {
@@ -38,7 +40,7 @@ function RecentRecords() {
   ];
 
   return (
-    <section className="border-border bg-card flex w-full flex-col rounded-2xl border-2 p-8">
+    <Card>
       <h3 className="mb-2 text-xl font-semibold">Recent Student Records</h3>
       <p>Latest student registrations and SIM card assignments</p>
 
@@ -95,7 +97,7 @@ function RecentRecords() {
           );
         })}
       </div>
-    </section>
+    </Card>
   );
 }
 
