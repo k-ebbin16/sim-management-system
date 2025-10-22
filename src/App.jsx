@@ -9,6 +9,7 @@ import NotFound from "./pages/NotFound/NotFound";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { useContext } from "react";
 import { v4 as uuid } from "uuid";
+import SysUsersPage from "./pages/SystemUsersPage/SysUsersPage";
 
 function App() {
   const { isAuthenticated } = useContext(AuthContext);
@@ -20,6 +21,7 @@ function App() {
       link: "/",
       description: "",
       icon: "fa-solid fa-house",
+      pageComponent: HomePage,
     },
     {
       id: uuid(),
@@ -41,12 +43,13 @@ function App() {
       link: "/system-users",
       description: "View an individual students details",
       icon: "fa-solid fa-users",
+      pageComponent: SysUsersPage,
     },
     {
       id: uuid(),
       name: "",
       title: "Add Users",
-      link: "/users",
+      link: "/add-users",
       description: "Manage system users and permissions",
       icon: "fa-solid fa-user-plus",
     },
@@ -54,19 +57,25 @@ function App() {
 
   return (
     <Routes>
-      <Route
-        path="/"
-        element={
-          <ProtectedRoute isAuthenticated={isAuthenticated}>
-            <HomePage navData={navData} />
-          </ProtectedRoute>
-        }
-      />
+      {/* Login Page */}
       <Route
         path="/login"
         element={<LoginPage isAuthenticated={isAuthenticated} />}
       />
 
+      {navData.map((nav) => (
+        <Route
+          key={nav.id}
+          path={nav.link}
+          element={
+            <ProtectedRoute isAuthenticated={isAuthenticated}>
+              <nav.pageComponent navData={navData} />
+            </ProtectedRoute>
+          }
+        />
+      ))}
+
+      {/* Not Found */}
       <Route path="*" element={<NotFound />} />
     </Routes>
   );
