@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import ThemeContext from "./ThemeContext";
+import ThemeContext from "../ThemeContext";
 
 const ThemeProvider = ({ children }) => {
   const getInitialTheme = () => {
@@ -27,9 +27,10 @@ const ThemeProvider = ({ children }) => {
   // Toggle function
   const toggleTheme = () =>
     setTheme((prev) => (prev === "light" ? "dark" : "light"));
-  useEffect(() => {
-    console.log(theme);
-  }, [theme]);
+  
+  // useEffect(() => {
+  //   console.log(theme);
+  // }, [theme]);
 
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme }}>

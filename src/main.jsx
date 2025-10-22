@@ -1,10 +1,10 @@
 import "./index.css";
 
 import App from "./App.jsx";
-import AuthProvider from "./context/AuthContextProvider";
-import ThemeProvider from "./context/ThemeContextProvider";
+import AuthProvider from "./context/providers/AuthContextProvider";
 import { BrowserRouter } from "react-router-dom";
 import { StrictMode } from "react";
+import ThemeProvider from "./context/Providers/ThemeContextProvider";
 import { createRoot } from "react-dom/client";
 
 createRoot(document.getElementById("root")).render(
