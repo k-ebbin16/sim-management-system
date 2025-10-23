@@ -104,7 +104,7 @@ function AllUsersTable() {
               </p>
             </div>
             <button
-              className="bg-primary hover:bg-primary/90 h-9 rounded-md px-4 py-2 sm:h-8 lg:h-10"
+              className="bg-primary hover:bg-primary/90 h-9 rounded-md px-4 py-2 sm:h-8 lg:h-10 text-primary-foreground"
               onClick={() => navigate("/add-user")}
             >
               <i className="fa-solid fa-user-plus mr-2 text-xl"></i>
@@ -130,8 +130,8 @@ function AllUsersTable() {
           </div>
 
           {/* Table */}
-          <div className="rounded-md border">
-            <Table>
+          <div className="rounded-md border w-full">
+            <Table >
               <TableHeader>
                 <TableRow>
                   <TableHead>User</TableHead>
@@ -187,7 +187,7 @@ function AllUsersTable() {
                           <i className="fa-solid fa-pen-to-square text-base"></i>
                         </button>
                         <button className="text-destructive hover:text-destructive">
-                          <i class="fa-solid fa-trash text-base"></i>
+                          <i className="fa-solid fa-trash text-base"></i>
                         </button>
                       </div>
                     </TableCell>
