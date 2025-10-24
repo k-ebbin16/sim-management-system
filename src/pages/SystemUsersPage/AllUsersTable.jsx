@@ -33,8 +33,6 @@ const AllUsersTable = () => {
           <Avatar
             name={user.displayName}
             size="sm"
-            fallbackBackground="bg-primary"
-            fallbackTextColor="text-primary-foreground"
             className="flex-shrink-0"
           />
           <div className="min-w-0 flex-1">
