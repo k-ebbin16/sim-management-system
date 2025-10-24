@@ -1,4 +1,6 @@
 // components/SearchBar.jsx
+import { cn } from "../utils/util";
+
 const SearchBar = ({ value, onChange, placeholder = "Search..." }) => {
   return (
     <div className="relative w-full sm:w-auto">
@@ -22,7 +24,12 @@ const SearchBar = ({ value, onChange, placeholder = "Search..." }) => {
         placeholder={placeholder}
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="border-border bg-input-background text-foreground placeholder-muted-foreground focus:ring-ring focus:border-ring w-full rounded-lg border py-2 pr-4 pl-9 transition-colors focus:ring-2 sm:w-64"
+        className={cn(
+          "border-border bg-input-background w-full rounded-lg border py-2 pr-4 pl-9",
+          "text-foreground placeholder-muted-foreground",
+          "focus:border-ring focus:ring-ring transition-colors focus:ring-2",
+          "sm:w-64",
+        )}
       />
     </div>
   );

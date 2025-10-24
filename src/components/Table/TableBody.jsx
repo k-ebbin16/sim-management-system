@@ -1,6 +1,7 @@
 // components/Table/TableBody.jsx
 import TableRow from "./TableRow";
 import TableEmpty from "./TableEmpty";
+import { cn } from "../../utils/util";
 
 const TableBody = ({ columns, data, searchTerm }) => {
   if (data.length === 0) {
@@ -17,10 +18,13 @@ const TableBody = ({ columns, data, searchTerm }) => {
   return (
     <div className="border-border rounded-lg border">
       {/* Mobile horizontal scroll indicator */}
-      <div className="bg-muted/50 border-border block border-b px-4 py-2 sm:hidden">
-        <p className="text-muted-foreground text-center text-xs">
-          ← Scroll horizontally to view all columns →
-        </p>
+      <div
+        className={cn(
+          "border-border block border-b px-4 py-2 sm:hidden",
+          "bg-muted/50 text-muted-foreground text-center text-xs",
+        )}
+      >
+        ← Scroll horizontally to view all columns →
       </div>
 
       {/* Table container with fixed width and horizontal scroll */}
@@ -31,7 +35,9 @@ const TableBody = ({ columns, data, searchTerm }) => {
               {columns.map((column) => (
                 <th
                   key={column.key}
-                  className="text-secondary-foreground px-4 py-3 text-left text-xs font-medium tracking-wider whitespace-nowrap uppercase lg:px-6"
+                  className={cn(
+                    "text-secondary-foreground px-4 py-3 text-left text-xs font-medium tracking-wider whitespace-nowrap uppercase lg:px-6",
+                  )}
                   style={{ minWidth: column.minWidth || "120px" }}
                 >
                   {column.header}

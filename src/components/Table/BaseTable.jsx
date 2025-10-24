@@ -2,6 +2,7 @@
 import TableHeader from "./TableHeader";
 import TableBody from "./TableBody";
 import TableEmpty from "./TableEmpty";
+import { cn } from "../../utils/util";
 
 const BaseTable = ({
   columns,
@@ -12,7 +13,7 @@ const BaseTable = ({
   onAdd,
   addButtonText = "Add New",
   title = "Data Management",
-  description = "", // New prop for description
+  description = "",
   isLoading = false,
   error = null,
   onRetry,
@@ -121,10 +122,14 @@ const BaseTable = ({
       />
 
       {error && data.length > 0 && (
-        <div className="mb-4 rounded-lg bg-yellow-50 p-3 sm:p-4 dark:bg-yellow-900/20">
-          <p className="text-xs text-yellow-800 sm:text-sm dark:text-yellow-300">
-            {error} (showing cached data)
-          </p>
+        <div
+          className={cn(
+            "mb-4 rounded-lg p-3 sm:p-4",
+            "bg-yellow-50 dark:bg-yellow-900/20",
+            "text-xs text-yellow-800 sm:text-sm dark:text-yellow-300",
+          )}
+        >
+          {error} (showing cached data)
         </div>
       )}
 

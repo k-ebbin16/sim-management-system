@@ -1,4 +1,6 @@
 // components/Table/TableEmpty.jsx
+import { cn } from "../../utils/util";
+
 const TableEmpty = ({ hasData, searchTerm, colSpan, columns }) => {
   return (
     <div className="border-border rounded-lg border">
@@ -9,7 +11,9 @@ const TableEmpty = ({ hasData, searchTerm, colSpan, columns }) => {
               {columns.map((column, index) => (
                 <th
                   key={column.key || index}
-                  className="text-secondary-foreground px-4 py-3 text-left text-xs font-medium tracking-wider whitespace-nowrap uppercase lg:px-6"
+                  className={cn(
+                    "text-secondary-foreground px-4 py-3 text-left text-xs font-medium tracking-wider whitespace-nowrap uppercase lg:px-6",
+                  )}
                   style={{ minWidth: column.minWidth || "120px" }}
                 >
                   {column.header}
