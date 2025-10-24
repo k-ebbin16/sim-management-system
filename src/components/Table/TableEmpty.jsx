@@ -25,19 +25,7 @@ const TableEmpty = ({ hasData, searchTerm, colSpan, columns }) => {
             <tr>
               <td colSpan={colSpan} className="px-4 py-8 text-center sm:py-12">
                 <div className="text-muted-foreground">
-                  <svg
-                    className="text-muted-foreground/60 mx-auto h-8 w-8 sm:h-12 sm:w-12"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                    />
-                  </svg>
+                  <i className="fa-regular fa-face-meh text-muted-foreground/60 mb-3 text-3xl"></i>
                   <p className="text-card-foreground mt-2 text-base font-medium sm:mt-3 sm:text-lg">
                     {hasData ? "No items found" : "No items available"}
                   </p>

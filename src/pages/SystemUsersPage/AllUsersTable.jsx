@@ -28,7 +28,7 @@ const AllUsersTable = () => {
             className="flex-shrink-0"
           />
           <div className="min-w-0 flex-1">
-            <div className="text-card-foreground truncate text-md font-medium">
+            <div className="text-card-foreground text-md truncate font-medium">
               {user.displayName || "N/A"}
             </div>
             {/* <div className="text-muted-foreground truncate text-sm">
@@ -77,14 +77,14 @@ const AllUsersTable = () => {
             className="text-primary hover:text-primary/80 hover:bg-primary/10 rounded-lg p-2 transition-colors"
             title="Edit user"
           >
-            <i className="fa-solid fa-pen-to-square text-base"></i>
+            <i className="fa-solid fa-pen-to-square text-sm"></i>
           </button>
           <button
             onClick={() => handleDelete(user)}
             className="text-destructive hover:text-destructive/80 hover:bg-destructive/10 rounded-lg p-2 transition-colors"
             title="Delete user"
           >
-            <i className="fa-solid fa-trash text-base"></i>
+            <i className="fa-solid fa-trash text-sm"></i>
           </button>
         </div>
       ),

@@ -35,26 +35,8 @@ const BaseTable = ({
       <div className="bg-card border-border rounded-lg border p-4 shadow-sm sm:p-6">
         <div className="flex items-center justify-center py-8 sm:py-12">
           <div className="text-center">
-            <svg
-              className="text-primary mx-auto h-8 w-8 animate-spin"
-              fill="none"
-              viewBox="0 0 24 24"
-            >
-              <circle
-                className="opacity-25"
-                cx="12"
-                cy="12"
-                r="10"
-                stroke="currentColor"
-                strokeWidth="4"
-              ></circle>
-              <path
-                className="opacity-75"
-                fill="currentColor"
-                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-              ></path>
-            </svg>
-            <p className="text-card-foreground mt-3">Loading...</p>
+            <i className="fa-solid fa-spinner text-primary mb-3 animate-spin text-2xl"></i>
+            <p className="text-card-foreground">Loading...</p>
             {description && (
               <p className="text-muted-foreground mt-2 text-sm">
                 {description}
@@ -70,20 +52,8 @@ const BaseTable = ({
     return (
       <div className="bg-card border-border rounded-lg border p-4 shadow-sm sm:p-6">
         <div className="py-8 text-center sm:py-12">
-          <svg
-            className="text-destructive mx-auto h-10 w-10 sm:h-12 sm:w-12"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.35 16.5c-.77.833.192 2.5 1.732 2.5z"
-            />
-          </svg>
-          <p className="text-card-foreground mt-3 text-lg font-medium">
+          <i className="fa-solid fa-triangle-exclamation text-destructive mb-3 text-2xl"></i>
+          <p className="text-card-foreground text-lg font-medium">
             Failed to load data
           </p>
           <p className="text-muted-foreground mt-1 text-sm sm:text-base">
@@ -129,6 +99,7 @@ const BaseTable = ({
             "text-xs text-yellow-800 sm:text-sm dark:text-yellow-300",
           )}
         >
+          <i className="fa-solid fa-triangle-exclamation mr-2"></i>
           {error} (showing cached data)
         </div>
       )}
