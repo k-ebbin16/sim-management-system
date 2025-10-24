@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-
 import AuthContext from "../AuthContext";
-import api from "../../api/axios";
+import api, { TokenManager } from "../../api/axios";
+import { useNavigate } from "react-router-dom";
 
 const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(() => localStorage.getItem("token"));
@@ -9,44 +9,101 @@ const AuthProvider = ({ children }) => {
   const [refreshToken, setRefreshToken] = useState(() =>
     localStorage.getItem("refreshToken"),
   );
+  const [isLoading, setIsLoading] = useState(true);
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // Set up the navigate function for token manager
+    TokenManager.setNavigate(navigate);
+  }, [navigate]);
 
   useEffect(() => {
     setIsAuthenticated(!!token);
   }, [token]);
 
+  // Initialize auth state on component mount
+  useEffect(() => {
+    const initializeAuth = () => {
+      const storedToken = localStorage.getItem("token");
+      const storedRefreshToken = localStorage.getItem("refreshToken");
+
+      if (storedToken) {
+        setToken(storedToken);
+        setRefreshToken(storedRefreshToken);
+        // Set the token in axios default headers
+        api.defaults.headers.common.Authorization = `Bearer ${storedToken}`;
+      }
+
+      setIsLoading(false);
+    };
+
+    initializeAuth();
+  }, []);
+
   const login = async (email, password) => {
     try {
-      const response = await api.post("/Token/getToken", {
-        email,
-        password,
-      });
+      setIsLoading(true);
+
+      // Use raw axios to avoid interceptors during login
+      const response = await api.post(
+        "/Token/getToken",
+        {
+          email,
+          password,
+        },
+        {
+          _skipAuth: true, // Custom flag to skip auth interceptor if needed
+        },
+      );
 
       const data = response.data;
 
       if (!data.isSuccessful) {
-        throw new Error(data.messages?.[0]);
+        throw new Error(data.messages?.[0] || "Login failed");
       }
 
-      localStorage.setItem("token", data.responseData?.token);
-      localStorage.setItem("refreshToken", data.responseData?.refreshToken);
+      const newToken = data.responseData?.token;
+      const newRefreshToken = data.responseData?.refreshToken;
 
-      setToken(() => localStorage.getItem("token"));
-      setToken(() => localStorage.getItem("refreshToken"));
+      if (!newToken || !newRefreshToken) {
+        throw new Error("Invalid token response from server");
+      }
 
-      return { isSuccessful: data.isSuccessful, token: token };
+      // Update state and localStorage
+      TokenManager.setTokens(newToken, newRefreshToken);
+      setToken(newToken);
+      setRefreshToken(newRefreshToken);
+
+      // Update axios default headers
+      api.defaults.headers.common.Authorization = `Bearer ${newToken}`;
+
+      return {
+        isSuccessful: true,
+        token: newToken,
+        message: "Login successful",
+      };
     } catch (error) {
       console.error("Login failed:", error.response?.data || error.message);
 
+      // Clear any partial auth state
+      logout();
+
       return {
-        isSuccessful: error.response?.data.isSuccessful,
-        message: error.response?.data.messages[0],
+        isSuccessful: false,
+        message:
+          error.response?.data?.messages?.[0] ||
+          error.message ||
+          "Login failed",
       };
+    } finally {
+      setIsLoading(false);
     }
   };
 
   const refreshAuthToken = async () => {
     try {
-      const response = await api.post("/api/Token/refreshToken", {
+      const response = await api.post("/Token/refreshToken", {
         token,
         refreshToken,
       });
@@ -54,39 +111,61 @@ const AuthProvider = ({ children }) => {
       const { token: newToken, refreshToken: newRefreshToken } =
         response.data.responseData;
 
-      localStorage.setItem("token", newToken);
-      localStorage.setItem("refreshToken", newRefreshToken);
+      if (!newToken || !newRefreshToken) {
+        throw new Error("Invalid token response");
+      }
 
-      setToken(() => localStorage.getItem("token"));
-      setToken(() => localStorage.getItem("refreshToken"));
-      console.log("Token refreshed");
+      // Update state and localStorage using TokenManager
+      TokenManager.setTokens(newToken, newRefreshToken);
+      setToken(newToken);
+      setRefreshToken(newRefreshToken);
+
+      // Update axios default headers
+      api.defaults.headers.common.Authorization = `Bearer ${newToken}`;
+
+      console.log("Token refreshed successfully");
+      return { success: true, token: newToken };
     } catch (error) {
-      console.warn("Token refresh failed:", error.response?.data);
+      console.warn(
+        "Token refresh failed:",
+        error.response?.data || error.message,
+      );
       logout(); // if refresh fails → logout user
+      return { success: false, error: error.message };
     }
   };
 
   const logout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("refreshToken");
-    setToken("");
-    setRefreshToken("");
+    // Clear tokens using TokenManager
+    TokenManager.clearTokens();
+
+    // Clear local state
+    setToken(null);
+    setRefreshToken(null);
+
+    // Clear axios default headers
+    delete api.defaults.headers.common.Authorization;
+
+    // Navigate to login page
+    navigate("/login", { replace: true });
   };
 
-  return (
-    <AuthContext.Provider
-      value={{
-        token,
-        refreshToken,
-        isAuthenticated,
-        login,
-        logout,
-        refreshAuthToken,
-      }}
-    >
-      {children}
-    </AuthContext.Provider>
-  );
+  // Optional: Auto-refresh token before expiry
+  useEffect(() => {
+    if (!token) return;
+  }, [token]);
+
+  const value = {
+    isAuthenticated,
+    token,
+    refreshToken,
+    isLoading,
+    login,
+    logout,
+    refreshAuthToken,
+  };
+
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
 
 export default AuthProvider;

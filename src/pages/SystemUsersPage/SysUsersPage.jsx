@@ -9,7 +9,7 @@ function SysUsersPage({ navData }) {
       <NavigationContainer navData={navData} />
 
       {/* Content Section */}
-      <main className="mt-[80px] min-h-dvh flex-1 p-8 lg:mt-0">
+      <main className="mt-[80px] min-h-dvh w-full flex-1 p-8 lg:mt-0">
         {/* Hero Section */}
         <section className="relative mb-6">
           <h1 className="text-2xl font-semibold md:text-3xl lg:text-4xl">
