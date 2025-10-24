@@ -4,7 +4,7 @@ const StatusBadge = ({
   activeText = "Active",
   inactiveText = "Inactive",
 }) => {
-  const baseClasses = "px-2 py-1 rounded-full text-xs font-medium";
+  const baseClasses = "px-2 py-1 rounded-md text-xs font-medium";
 
   const getStatusClasses = () => {
     if (status === true || status === "Active" || status === "active") {
