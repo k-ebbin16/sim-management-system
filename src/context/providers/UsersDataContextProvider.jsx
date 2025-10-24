@@ -7,7 +7,7 @@ const UserDataProvider = ({ children }) => {
 
   const getUsers = async () => {
     try {
-      const response = await api.get("/Users");
+      const response = await api.get("/Users/getUser");
       const data = response.data;
 
       if (!data.isSuccessful) {
