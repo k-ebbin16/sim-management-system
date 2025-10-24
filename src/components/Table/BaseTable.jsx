@@ -1,8 +1,18 @@
 // components/Table/BaseTable.jsx
-import TableHeader from "./TableHeader";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import TableBody from "./TableBody";
 import TableEmpty from "./TableEmpty";
+import TableHeader from "./TableHeader";
 import { cn } from "../../utils/util";
+import { fab } from "@fortawesome/free-brands-svg-icons";
+import { far } from "@fortawesome/free-regular-svg-icons";
+import { fas } from "@fortawesome/free-solid-svg-icons";
+import { library } from "@fortawesome/fontawesome-svg-core";
+
+/* import all the icons in Free Solid, Free Regular, and Brands styles */
+
+library.add(fas, far, fab);
 
 const BaseTable = ({
   columns,
@@ -35,7 +45,10 @@ const BaseTable = ({
       <div className="bg-card border-border rounded-lg border p-4 shadow-sm sm:p-6">
         <div className="flex items-center justify-center py-8 sm:py-12">
           <div className="text-center">
-            <i className="fa-solid fa-spinner text-primary mb-3 animate-spin text-2xl"></i>
+            <FontAwesomeIcon
+              icon="fa-solid fa-spinner "
+              className="text-primary mb-3 animate-spin text-2xl"
+            />
             <p className="text-card-foreground">Loading...</p>
             {description && (
               <p className="text-muted-foreground mt-2 text-sm">
@@ -52,7 +65,10 @@ const BaseTable = ({
     return (
       <div className="bg-card border-border rounded-lg border p-4 shadow-sm sm:p-6">
         <div className="py-8 text-center sm:py-12">
-          <i className="fa-solid fa-triangle-exclamation text-destructive mb-3 text-2xl"></i>
+          <FontAwesomeIcon
+            icon="fa-solid fa-triangle-exclamation "
+            className="text-destructive mb-3 text-2xl"
+          />
           <p className="text-card-foreground text-lg font-medium">
             Failed to load data
           </p>
@@ -99,7 +115,10 @@ const BaseTable = ({
             "text-xs text-yellow-800 sm:text-sm dark:text-yellow-300",
           )}
         >
-          <i className="fa-solid fa-triangle-exclamation mr-2"></i>
+          <FontAwesomeIcon
+            icon="fa-solid fa-triangle-exclamation "
+            className="mr-2"
+          />
           {error} (showing cached data)
         </div>
       )}

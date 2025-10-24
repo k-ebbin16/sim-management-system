@@ -19,7 +19,7 @@ const UserDataProvider = ({ children }) => {
       return {
         isSuccessful: data.isSuccessful,
         responseData: data.responseData,
-        users: data.responseData, 
+        users: data.responseData,
       };
     } catch (error) {
       console.error(

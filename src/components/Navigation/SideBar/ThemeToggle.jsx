@@ -1,5 +1,13 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ThemeContext from "../../../context/ThemeContext";
+import { fab } from "@fortawesome/free-brands-svg-icons";
+import { far } from "@fortawesome/free-regular-svg-icons";
+/* import all the icons in Free Solid, Free Regular, and Brands styles */
+import { fas } from "@fortawesome/free-solid-svg-icons";
+import { library } from "@fortawesome/fontawesome-svg-core";
 import { useContext } from "react";
+
+library.add(fas, far, fab);
 
 function ThemeToggle() {
   const { theme, toggleTheme } = useContext(ThemeContext);
@@ -8,9 +16,15 @@ function ThemeToggle() {
     <div className="flex items-center justify-between px-4 py-2">
       <div className="flex items-center gap-2">
         {theme === "dark" ? (
-          <i className="fa-solid fa-moon rotate-0 transition-transform duration-500"></i>
+          <FontAwesomeIcon
+            icon="fa-solid fa-moon "
+            className="rotate-0 transition-transform duration-500"
+          />
         ) : (
-          <i className="fa-solid fa-sun rotate-180 transition-transform duration-500"></i>
+          <FontAwesomeIcon
+            icon="fa-solid fa-sun "
+            className="rotate-180 transition-transform duration-500"
+          />
         )}
         <label
           htmlFor="theme-toggle"

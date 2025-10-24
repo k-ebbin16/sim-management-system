@@ -1,5 +1,15 @@
 // components/AddButton.jsx
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { cn } from "../utils/util";
+import { fab } from "@fortawesome/free-brands-svg-icons";
+import { far } from "@fortawesome/free-regular-svg-icons";
+import { fas } from "@fortawesome/free-solid-svg-icons";
+import { library } from "@fortawesome/fontawesome-svg-core";
+
+/* import all the icons in Free Solid, Free Regular, and Brands styles */
+
+library.add(fas, far, fab);
 
 const AddButton = ({ onClick, text = "Add New" }) => {
   return (
@@ -11,7 +21,7 @@ const AddButton = ({ onClick, text = "Add New" }) => {
         "focus:ring-ring transition-colors focus:ring-2 focus:ring-offset-2",
       )}
     >
-      <i className="fa-solid fa-plus text-sm"></i>
+      <FontAwesomeIcon icon="fa-solid fa-plus" className="text-sm" />
       {text}
     </button>
   );

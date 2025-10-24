@@ -44,7 +44,7 @@ const TokenManager = {
       return expiryTime - currentTime < bufferTime;
     } catch (error) {
       console.log(error);
-      
+
       return true;
     }
   },

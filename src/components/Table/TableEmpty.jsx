@@ -1,5 +1,15 @@
 // components/Table/TableEmpty.jsx
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { cn } from "../../utils/util";
+import { fab } from "@fortawesome/free-brands-svg-icons";
+import { far } from "@fortawesome/free-regular-svg-icons";
+import { fas } from "@fortawesome/free-solid-svg-icons";
+import { library } from "@fortawesome/fontawesome-svg-core";
+
+/* import all the icons in Free Solid, Free Regular, and Brands styles */
+
+library.add(fas, far, fab);
 
 const TableEmpty = ({ hasData, searchTerm, colSpan, columns }) => {
   return (
@@ -25,7 +35,10 @@ const TableEmpty = ({ hasData, searchTerm, colSpan, columns }) => {
             <tr>
               <td colSpan={colSpan} className="px-4 py-8 text-center sm:py-12">
                 <div className="text-muted-foreground">
-                  <i className="fa-regular fa-face-meh text-muted-foreground/60 mb-3 text-3xl"></i>
+                  <FontAwesomeIcon
+                    icon="fa-regular fa-face-meh "
+                    className="text-muted-foreground/60 mb-3 text-3xl"
+                  />
                   <p className="text-card-foreground mt-2 text-base font-medium sm:mt-3 sm:text-lg">
                     {hasData ? "No items found" : "No items available"}
                   </p>

@@ -142,10 +142,8 @@
   }
 }
 
-
 /* Custom Scrollbar Styles */
 @layer base {
-
   /* For Webkit browsers (Chrome, Safari, Edge) */
   ::-webkit-scrollbar {
     width: 8px;

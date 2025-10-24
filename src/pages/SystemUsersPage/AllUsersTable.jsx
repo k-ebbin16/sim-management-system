@@ -1,8 +1,18 @@
-import { useContext, useState, useEffect } from "react";
-import UsersDataContext from "../../context/UsersDataContext";
-import { BaseTable } from "../../components/Table";
-import StatusBadge from "../../components/StatusBadge";
+import { useContext, useEffect, useState } from "react";
+
 import Avatar from "../../components/Avatar/Avatar";
+import { BaseTable } from "../../components/Table";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import StatusBadge from "../../components/StatusBadge";
+import UsersDataContext from "../../context/UsersDataContext";
+import { fab } from "@fortawesome/free-brands-svg-icons";
+import { far } from "@fortawesome/free-regular-svg-icons";
+import { fas } from "@fortawesome/free-solid-svg-icons";
+import { library } from "@fortawesome/fontawesome-svg-core";
+
+/* import all the icons in Free Solid, Free Regular, and Brands styles */
+
+library.add(fas, far, fab);
 
 const AllUsersTable = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -77,14 +87,17 @@ const AllUsersTable = () => {
             className="text-primary hover:text-primary/80 hover:bg-primary/10 rounded-lg p-2 transition-colors"
             title="Edit user"
           >
-            <i className="fa-solid fa-pen-to-square text-sm"></i>
+            <FontAwesomeIcon
+              icon="fa-solid fa-pen-to-square "
+              className="text-sm"
+            />
           </button>
           <button
             onClick={() => handleDelete(user)}
             className="text-destructive hover:text-destructive/80 hover:bg-destructive/10 rounded-lg p-2 transition-colors"
             title="Delete user"
           >
-            <i className="fa-solid fa-trash text-sm"></i>
+            <FontAwesomeIcon icon="fa-solid fa-trash " className="text-sm" />
           </button>
         </div>
       ),

@@ -1,7 +1,15 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Logo from "../../Logo";
 import LogoutBtn from "./LogoutBtn";
 import { NavLink } from "react-router-dom";
 import ThemeToggle from "./ThemeToggle";
+import { fab } from "@fortawesome/free-brands-svg-icons";
+import { far } from "@fortawesome/free-regular-svg-icons";
+/* import all the icons in Free Solid, Free Regular, and Brands styles */
+import { fas } from "@fortawesome/free-solid-svg-icons";
+import { library } from "@fortawesome/fontawesome-svg-core";
+
+library.add(fas, far, fab);
 
 function SideBar({ navData, hamburgerIsOpen }) {
   return (
@@ -19,7 +27,10 @@ function SideBar({ navData, hamburgerIsOpen }) {
         {/* User Info */}
         <div className="flex items-center gap-x-4 p-6">
           <div className="bg-sidebar-accent flex h-12 w-12 items-center justify-center overflow-hidden rounded-full lg:h-14 lg:w-14">
-            <i className="fa-solid fa-user inline-block text-2xl"></i>
+            <FontAwesomeIcon
+              icon="fa-solid fa-user "
+              className="inline-block text-2xl"
+            />
           </div>
           <div className="flex flex-col justify-center">
             <p className="text-sidebar-primary text-lg lg:text-xl">

@@ -1,3 +1,12 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { fab } from "@fortawesome/free-brands-svg-icons";
+import { far } from "@fortawesome/free-regular-svg-icons";
+/* import all the icons in Free Solid, Free Regular, and Brands styles */
+import { fas } from "@fortawesome/free-solid-svg-icons";
+import { library } from "@fortawesome/fontawesome-svg-core";
+
+library.add(fas, far, fab);
+
 function SignupForm({ setIsAuthenticated }) {
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -26,7 +35,7 @@ function SignupForm({ setIsAuthenticated }) {
             Full Name
           </label>
           <div className="border-muted-foreground/20 focus-within:border-primary hover:border-primary bg-input-background flex items-center gap-4 rounded-lg border px-4 py-1.5 transition-all">
-            <i className="fa-solid fa-user"></i>
+            <FontAwesomeIcon icon="fa-solid fa-user" />
             <input
               className="text-muted-foreground w-full transition-all outline-none placeholder:text-sm placeholder:font-light"
               type="text"
@@ -44,7 +53,7 @@ function SignupForm({ setIsAuthenticated }) {
             Email Address
           </label>
           <div className="border-muted-foreground/20 focus-within:border-primary hover:border-primary bg-input-background flex items-center gap-4 rounded-lg border px-4 py-1.5 transition-all">
-            <i className="fa-solid fa-envelope"></i>
+            <FontAwesomeIcon icon="fa-solid fa-envelope" />
             <input
               className="text-muted-foreground w-full transition-all outline-none placeholder:text-sm placeholder:font-light"
               type="email"
@@ -62,7 +71,7 @@ function SignupForm({ setIsAuthenticated }) {
             Phone Number
           </label>
           <div className="border-muted-foreground/20 focus-within:border-primary hover:border-primary bg-input-background flex items-center gap-4 rounded-lg border px-4 py-1.5 transition-all">
-            <i className="fa-solid fa-phone"></i>
+            <FontAwesomeIcon icon="fa-solid fa-phone" />
             <input
               className="text-muted-foreground w-full transition-all outline-none placeholder:text-sm placeholder:font-light"
               type="tel"
@@ -80,7 +89,7 @@ function SignupForm({ setIsAuthenticated }) {
             Password
           </label>
           <div className="border-muted-foreground/20 focus-within:border-primary hover:border-primary bg-input-background flex items-center gap-4 rounded-lg border px-4 py-1.5 transition-all">
-            <i className="fa-solid fa-lock"></i>
+            <FontAwesomeIcon icon="fa-solid fa-lock" />
             <input
               className="text-muted-foreground w-full transition-all outline-none placeholder:text-sm placeholder:font-light"
               type="password"
@@ -98,7 +107,7 @@ function SignupForm({ setIsAuthenticated }) {
             Confirm Password
           </label>
           <div className="border-muted-foreground/20 focus-within:border-primary hover:border-primary bg-input-background flex items-center gap-4 rounded-lg border px-4 py-1.5 transition-all">
-            <i className="fa-solid fa-lock"></i>
+            <FontAwesomeIcon icon="fa-solid fa-lock" />
             <input
               className="text-muted-foreground w-full transition-all outline-none placeholder:text-sm placeholder:font-light"
               type="password"

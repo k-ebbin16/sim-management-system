@@ -5,9 +5,9 @@ function BackDrop({ hamburgerIsOpen, setHamburgerIsOpen, className = "" }) {
     <div
       className={cn(
         className,
-        "bg-accent/20 fixed top-0 left-0 z-10 min-h-dvh w-screen transition duration-300 hidden",
+        "bg-accent/20 fixed top-0 left-0 z-10 hidden min-h-dvh w-screen transition duration-300",
         hamburgerIsOpen
-          ? "opacity-100 backdrop-blur-xs block"
+          ? "block opacity-100 backdrop-blur-xs"
           : "opacity-0 backdrop-blur-none",
       )}
       onClick={() => {
