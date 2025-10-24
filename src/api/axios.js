@@ -18,7 +18,6 @@ const TokenManager = {
     localStorage.removeItem("token");
     localStorage.removeItem("refreshToken");
   },
-  // We'll set the navigate function from the component
   navigate: null,
   setNavigate: (navigateFunction) => {
     TokenManager.navigate = navigateFunction;
@@ -28,22 +27,47 @@ const TokenManager = {
     if (TokenManager.navigate) {
       TokenManager.navigate("/login");
     } else {
-      // Fallback if navigate is not set (e.g., in non-React context)
       console.warn(
         "Navigate function not set. Using window.location as fallback.",
       );
       window.location.href = "/login";
     }
   },
+  // Helper to check if token is expired
+  isTokenExpired: (token) => {
+    try {
+      if (!token) return true;
+      const payload = JSON.parse(atob(token.split(".")[1]));
+      const expiryTime = payload.exp * 1000;
+      const currentTime = Date.now();
+      const bufferTime = 2 * 60 * 1000; // 2 minutes buffer
+      return expiryTime - currentTime < bufferTime;
+    } catch (error) {
+      console.log(error);
+      
+      return true;
+    }
+  },
 };
 
-// Request interceptor
+// Request interceptor - Check token before each request
 api.interceptors.request.use(
   (config) => {
+    // Skip auth check for certain requests
+    if (config._skipAuth) {
+      return config;
+    }
+
     const token = TokenManager.getToken();
+
     if (token) {
+      // Check if token is expired before making request
+      if (TokenManager.isTokenExpired(token)) {
+        console.warn("Token expired, will trigger refresh on 401 response");
+      }
       config.headers.Authorization = `Bearer ${token}`;
     }
+
     return config;
   },
   (error) => Promise.reject(error),
@@ -68,6 +92,11 @@ api.interceptors.response.use(
   (response) => response,
   async (error) => {
     const originalRequest = error.config;
+
+    // Skip interceptor for certain requests
+    if (originalRequest._skipAuth) {
+      return Promise.reject(error);
+    }
 
     // Check if it's a 401 error and we haven't already retried
     if (error.response?.status === 401 && !originalRequest._retry) {
@@ -106,8 +135,7 @@ api.interceptors.response.use(
             headers: {
               "Content-Type": "application/json",
             },
-            // Don't use the api instance here to avoid infinite loop
-            baseURL: "", // Override baseURL to use full URL
+            baseURL: "",
           },
         );
 
@@ -143,7 +171,6 @@ api.interceptors.response.use(
 
     // Handle other types of errors
     if (error.response?.status === 403) {
-      // Forbidden - possibly token is valid but user doesn't have permission
       console.error("Access forbidden:", error.response.data);
     }
 
@@ -157,12 +184,10 @@ export const checkTokenValidity = async () => {
     const token = TokenManager.getToken();
     if (!token) return false;
 
-    // You might want to add a lightweight endpoint to validate token
-    // For now, we'll assume token is valid if it exists
-    return true;
+    // Check if token is expired
+    return !TokenManager.isTokenExpired(token);
   } catch (error) {
-    console.log(error);
-
+    console.error("Error checking token validity:", error);
     return false;
   }
 };

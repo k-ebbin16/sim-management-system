@@ -33,6 +33,9 @@ const AuthProvider = ({ children }) => {
         setRefreshToken(storedRefreshToken);
         // Set the token in axios default headers
         api.defaults.headers.common.Authorization = `Bearer ${storedToken}`;
+
+        // Check if token is expired on app start
+        checkTokenExpiry(storedToken);
       }
 
       setIsLoading(false);
@@ -41,11 +44,49 @@ const AuthProvider = ({ children }) => {
     initializeAuth();
   }, []);
 
+  // Function to check if token is expired or about to expire
+  const checkTokenExpiry = (token) => {
+    try {
+      if (!token) return true;
+
+      // Decode the token to check expiry
+      const payload = JSON.parse(atob(token.split(".")[1]));
+      const expiryTime = payload.exp * 1000; // Convert to milliseconds
+      const currentTime = Date.now();
+      const bufferTime = 5 * 60 * 1000; // 5 minutes buffer
+
+      // If token expires in less than 5 minutes, consider it expired
+      return expiryTime - currentTime < bufferTime;
+    } catch (error) {
+      console.error("Error checking token expiry:", error);
+      return true; // If we can't decode, assume expired
+    }
+  };
+
+  // Auto-refresh token before expiry
+  useEffect(() => {
+    if (!token) return;
+
+    const checkAndRefreshToken = async () => {
+      if (checkTokenExpiry(token)) {
+        console.log("Token expired or about to expire, refreshing...");
+        await refreshAuthToken();
+      }
+    };
+
+    // Check token expiry every minute
+    const interval = setInterval(checkAndRefreshToken, 60000);
+
+    // Initial check
+    checkAndRefreshToken();
+
+    return () => clearInterval(interval);
+  }, [token]);
+
   const login = async (email, password) => {
     try {
       setIsLoading(true);
 
-      // Use raw axios to avoid interceptors during login
       const response = await api.post(
         "/Token/getToken",
         {
@@ -53,7 +94,7 @@ const AuthProvider = ({ children }) => {
           password,
         },
         {
-          _skipAuth: true, // Custom flag to skip auth interceptor if needed
+          _skipAuth: true,
         },
       );
 
@@ -103,10 +144,23 @@ const AuthProvider = ({ children }) => {
 
   const refreshAuthToken = async () => {
     try {
-      const response = await api.post("/Token/refreshToken", {
-        token,
-        refreshToken,
-      });
+      const currentToken = TokenManager.getToken();
+      const currentRefreshToken = TokenManager.getRefreshToken();
+
+      if (!currentToken || !currentRefreshToken) {
+        throw new Error("No tokens available for refresh");
+      }
+
+      const response = await api.post(
+        "/Token/refreshToken",
+        {
+          token: currentToken,
+          refreshToken: currentRefreshToken,
+        },
+        {
+          _skipAuth: true, // Skip auth interceptor for refresh request
+        },
+      );
 
       const { token: newToken, refreshToken: newRefreshToken } =
         response.data.responseData;
@@ -149,11 +203,6 @@ const AuthProvider = ({ children }) => {
     // Navigate to login page
     navigate("/login", { replace: true });
   };
-
-  // Optional: Auto-refresh token before expiry
-  useEffect(() => {
-    if (!token) return;
-  }, [token]);
 
   const value = {
     isAuthenticated,
