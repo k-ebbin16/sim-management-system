@@ -7,8 +7,7 @@ const Avatar = ({
   name = "",
   size = "md", // xs, sm, md, lg, xl
   className = "",
-  fallbackBackground = "bg-primary",
-  fallbackTextColor = "text-primary-foreground",
+  variant = "default", // default, primary, muted, accent, secondary
   showTooltip = false,
   ...props
 }) => {
@@ -37,21 +36,41 @@ const Avatar = ({
     }
   };
 
+  const getVariantClasses = () => {
+    switch (variant) {
+      case "primary":
+        return "bg-primary/15 text-primary border border-primary/20 dark:bg-primary/10 dark:text-primary-foreground dark:border-primary/30";
+
+      case "muted":
+        return "bg-muted text-muted-foreground border border-border dark:bg-muted/80 dark:text-muted-foreground";
+
+      case "accent":
+        return "bg-accent/15 text-accent-foreground border border-accent/20 dark:bg-accent/10 dark:text-accent-foreground dark:border-accent/30";
+
+      case "secondary":
+        return "bg-secondary text-secondary-foreground border border-border dark:bg-secondary/80 dark:text-secondary-foreground";
+
+      default: // default variant
+        return "bg-primary/10 text-primary/80 border border-primary/15 dark:bg-primary/5 dark:text-primary-foreground/80 dark:border-primary/20";
+    }
+  };
+
   const handleImageError = () => {
     setImageError(true);
   };
 
   const initials = getInitials(name);
   const sizeClass = sizes[size] || sizes.md;
+  const variantClasses = getVariantClasses();
 
   const avatarContent = (
     <div
       className={cn(
         "inline-flex items-center justify-center rounded-full font-medium",
         sizeClass,
+        variantClasses,
         className,
-        (!src || imageError) &&
-          cn(fallbackBackground, fallbackTextColor, "border-border border"),
+        src && !imageError && "border-border",
       )}
       {...props}
     >
@@ -63,7 +82,7 @@ const Avatar = ({
           onError={handleImageError}
         />
       ) : (
-        <span className="font-semibold tracking-tight">{initials}</span>
+        <span className="font-medium tracking-tight">{initials}</span>
       )}
     </div>
   );

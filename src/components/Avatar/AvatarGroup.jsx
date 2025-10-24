@@ -7,6 +7,7 @@ const AvatarGroup = ({
   max = 5,
   size = "md",
   spacing = "overlap", // overlap, separate
+  variant = "default",
   className = "",
 }) => {
   const visibleUsers = users.slice(0, max);
@@ -30,6 +31,7 @@ const AvatarGroup = ({
           src={user.avatar || user.image}
           name={user.name || user.displayName || user.email}
           size={size}
+          variant={variant}
           className="border-background dark:border-card border-2"
         />
       ))}
@@ -37,7 +39,7 @@ const AvatarGroup = ({
         <div
           className={cn(
             "flex items-center justify-center rounded-full font-medium",
-            "bg-muted text-muted-foreground border-background dark:border-card border-2",
+            "bg-muted/80 text-muted-foreground border-background dark:border-card border-2",
             sizeClasses[size],
           )}
         >
