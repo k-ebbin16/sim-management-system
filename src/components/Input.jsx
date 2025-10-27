@@ -1,15 +1,23 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { cn } from "../utils/util";
+import { fab } from "@fortawesome/free-brands-svg-icons";
+import { far } from "@fortawesome/free-regular-svg-icons";
+/* import all the icons in Free Solid, Free Regular, and Brands styles */
+import { fas } from "@fortawesome/free-solid-svg-icons";
+import { library } from "@fortawesome/fontawesome-svg-core";
+
+library.add(fas, far, fab);
 
 function Input({ className, type, icon, ...props }) {
   return (
     <div className="relative">
       {icon && (
-        <i
+        <FontAwesomeIcon
+          icon={icon}
           className={cn(
-            icon,
             "text-muted-foreground absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2",
           )}
-        ></i>
+        />
       )}
       <input
         type={type}

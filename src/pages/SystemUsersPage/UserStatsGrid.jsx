@@ -1,49 +1,51 @@
 import Card from "../../components/Card/Card";
 import CardContent from "../../components/Card/CardContent";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import RolesDataContext from "../../context/RolesDataContext";
 import { cn } from "../../utils/util";
+import { fab } from "@fortawesome/free-brands-svg-icons";
+import { far } from "@fortawesome/free-regular-svg-icons";
+/* import all the icons in Free Solid, Free Regular, and Brands styles */
+import { fas } from "@fortawesome/free-solid-svg-icons";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { useContext, useEffect } from "react";
+
+library.add(fas, far, fab);
 
 function UserStatsGrid() {
-  const userRoles = [
-    {
-      roleName: "Distributor",
-      roleDescription: "Distributor Role.",
-      totalNumberOfUsers: 6,
-    },
-    {
-      roleName: "Administrator",
-      roleDescription: "Administrator Role.",
-      totalNumberOfUsers: 1,
-    },
-    {
-      roleName: "SuperAdmin",
-      roleDescription: "SuperAdmin Role.",
-      totalNumberOfUsers: 2,
-      iconColor: "text-accent/50",
-    },
-    {
-      roleName: "TelecelAdministrator",
-      roleDescription: "TelecelAdministrator Role.",
-      totalNumberOfUsers: 5,
-    },
-  ];
+  const { getRoles, roles } = useContext(RolesDataContext);
+
+  const getRolesData = async () => {
+    try {
+      const result = await getRoles();
+    } catch (err) {
+      console.error("Error in getRolesData:", err);
+    }
+  };
+
+  useEffect(() => {
+    getRolesData();
+  }, []);
+
   return (
     <section className="mb-6 grid grid-cols-1 gap-4 md:grid-cols-2 2xl:grid-cols-4">
-      {userRoles.map((role, index) => (
-        <Card key={index}>
+      {roles.map((role) => (
+        <Card key={role.id}>
           <CardContent className="w-full p-0">
             <div className="flex w-full items-center justify-between">
               <div>
-                <p className="text-muted-foreground text-base">{`${role.roleName}s`}</p>
+                <p className="text-muted-foreground text-base">{`${role.name}s`}</p>
                 <p className="text-primary text-2xl">
-                  {role.totalNumberOfUsers}
+                  {/* {role.totalNumberOfUsers} */}
                 </p>
               </div>
-              <i
+              <FontAwesomeIcon
+                icon="fa-solid fa-shield"
                 className={cn(
-                  "fa-solid fa-shield text-primary/30 h-8 w-8 text-3xl",
-                  role.iconColor,
+                  "text-primary/30 h-8 w-8 text-3xl",
+                  role.name === "SuperAdmin" ? "text-accent/30" : "",
                 )}
-              ></i>
+              />
             </div>
           </CardContent>
         </Card>

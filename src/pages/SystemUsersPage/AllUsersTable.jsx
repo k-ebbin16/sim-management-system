@@ -30,11 +30,7 @@ const AllUsersTable = () => {
       minWidth: "250px",
       render: (user) => (
         <div className="flex items-center gap-3">
-          <Avatar
-            name={user.displayName}
-            size="sm"
-            className="flex-shrink-0"
-          />
+          <Avatar name={user.displayName} size="sm" className="flex-shrink-0" />
           <div className="min-w-0 flex-1">
             <div className="text-card-foreground text-md truncate font-medium">
               {user.displayName || "N/A"}

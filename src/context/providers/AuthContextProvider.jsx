@@ -10,16 +10,53 @@ const AuthProvider = ({ children }) => {
     localStorage.getItem("refreshToken"),
   );
   const [isLoading, setIsLoading] = useState(true);
+  const [user, setUser] = useState(null); // Add user state
 
   const navigate = useNavigate();
 
+  // Function to decode user from token
+  const decodeUserFromToken = (token) => {
+    if (!token) return null;
+
+    try {
+      const payload = token.split(".")[1];
+      const decoded = JSON.parse(atob(payload));
+
+      return {
+        id: decoded.uid,
+        email:
+          decoded[
+            "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress"
+          ],
+        name: decoded[
+          "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"
+        ],
+        displayName:
+          decoded["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"],
+        roles:
+          decoded[
+            "http://schemas.microsoft.com/ws/2008/06/identity/claims/role"
+          ] || [],
+        permissions: decoded.permission || [],
+      };
+    } catch (error) {
+      console.error("Error decoding token:", error);
+      return null;
+    }
+  };
+
   useEffect(() => {
-    // Set up the navigate function for token manager
     TokenManager.setNavigate(navigate);
   }, [navigate]);
 
   useEffect(() => {
     setIsAuthenticated(!!token);
+    // Update user when token changes
+    if (token) {
+      setUser(decodeUserFromToken(token));
+    } else {
+      setUser(null);
+    }
   }, [token]);
 
   // Initialize auth state on component mount
@@ -31,11 +68,8 @@ const AuthProvider = ({ children }) => {
       if (storedToken) {
         setToken(storedToken);
         setRefreshToken(storedRefreshToken);
-        // Set the token in axios default headers
+        setUser(decodeUserFromToken(storedToken)); // Decode user
         api.defaults.headers.common.Authorization = `Bearer ${storedToken}`;
-
-        // Check if token is expired on app start
-        checkTokenExpiry(storedToken);
       }
 
       setIsLoading(false);
@@ -43,45 +77,6 @@ const AuthProvider = ({ children }) => {
 
     initializeAuth();
   }, []);
-
-  // Function to check if token is expired or about to expire
-  const checkTokenExpiry = (token) => {
-    try {
-      if (!token) return true;
-
-      // Decode the token to check expiry
-      const payload = JSON.parse(atob(token.split(".")[1]));
-      const expiryTime = payload.exp * 1000; // Convert to milliseconds
-      const currentTime = Date.now();
-      const bufferTime = 5 * 60 * 1000; // 5 minutes buffer
-
-      // If token expires in less than 5 minutes, consider it expired
-      return expiryTime - currentTime < bufferTime;
-    } catch (error) {
-      console.error("Error checking token expiry:", error);
-      return true; // If we can't decode, assume expired
-    }
-  };
-
-  // Auto-refresh token before expiry
-  useEffect(() => {
-    if (!token) return;
-
-    const checkAndRefreshToken = async () => {
-      if (checkTokenExpiry(token)) {
-        console.log("Token expired or about to expire, refreshing...");
-        await refreshAuthToken();
-      }
-    };
-
-    // Check token expiry every minute
-    const interval = setInterval(checkAndRefreshToken, 60000);
-
-    // Initial check
-    checkAndRefreshToken();
-
-    return () => clearInterval(interval);
-  }, [token]);
 
   const login = async (email, password) => {
     try {
@@ -115,6 +110,7 @@ const AuthProvider = ({ children }) => {
       TokenManager.setTokens(newToken, newRefreshToken);
       setToken(newToken);
       setRefreshToken(newRefreshToken);
+      setUser(decodeUserFromToken(newToken)); // Decode and set user
 
       // Update axios default headers
       api.defaults.headers.common.Authorization = `Bearer ${newToken}`;
@@ -122,14 +118,12 @@ const AuthProvider = ({ children }) => {
       return {
         isSuccessful: true,
         token: newToken,
+        user: decodeUserFromToken(newToken), // Return user info
         message: "Login successful",
       };
     } catch (error) {
       console.error("Login failed:", error.response?.data || error.message);
-
-      // Clear any partial auth state
       logout();
-
       return {
         isSuccessful: false,
         message:
@@ -209,6 +203,7 @@ const AuthProvider = ({ children }) => {
     token,
     refreshToken,
     isLoading,
+    user, // Include user in context value
     login,
     logout,
     refreshAuthToken,

@@ -68,9 +68,7 @@ function App() {
           path={nav.link}
           element={
             <ProtectedRoute isAuthenticated={isAuthenticated}>
-              <UserDataProvider>
-                <nav.pageComponent navData={navData} />
-              </UserDataProvider>
+              <nav.pageComponent navData={navData} />
             </ProtectedRoute>
           }
         />

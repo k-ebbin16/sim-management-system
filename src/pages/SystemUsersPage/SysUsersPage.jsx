@@ -1,6 +1,8 @@
 import NavigationContainer from "../../components/Navigation/NavigationContainer";
 import AllUsersTable from "./AllUsersTable";
 import UserStatsGrid from "./UserStatsGrid";
+import RolesDataProvider from "../../context/providers/RolesDataContextProvider";
+import UserDataProvider from "../../context/providers/UsersDataContextProvider";
 
 function SysUsersPage({ navData }) {
   return (
@@ -21,10 +23,14 @@ function SysUsersPage({ navData }) {
         </section>
 
         {/* Users Stats Grid */}
-        <UserStatsGrid />
+        <RolesDataProvider>
+          <UserStatsGrid />
+        </RolesDataProvider>
 
         {/* Users Table */}
-        <AllUsersTable />
+        <UserDataProvider>
+          <AllUsersTable />
+        </UserDataProvider>
       </main>
     </div>
   );
