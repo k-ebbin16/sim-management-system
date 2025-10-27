@@ -1,39 +1,43 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import AuthContext from "../../context/AuthContext";
 import Input from "../../components/Input";
 import { useNavigate } from "react-router-dom";
+import { cn } from "../../utils/util";
+import Label from "../../components/Label";
 
 function LoginForm() {
   const { login, isLoading } = useContext(AuthContext);
   const navigate = useNavigate();
 
+  const emailRef = useRef();
+  const errorRef = useRef();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [authenticationFailed, setAuthenticationFailed] = useState(false);
-  const [authenticationFailedReason, setAuthenticationFailedReason] =
-    useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+
+  useEffect(() => {
+    emailRef.current.focus();
+  }, []);
+
+  useEffect(() => {
+    setErrorMessage("");
+  }, [email, password]);
 
   const handleAuthSubmit = async (e) => {
     e.preventDefault();
-    setAuthenticationFailed(false);
-    setAuthenticationFailedReason("");
+    setErrorMessage("");
 
     try {
       const result = await login(email, password);
       if (result.isSuccessful) {
-        setAuthenticationFailed(false);
+        setErrorMessage("");
         navigate("/", { replace: true });
       } else {
-        setAuthenticationFailed(true);
-        setAuthenticationFailedReason(
-          result.message || "Login failed. Please try again.",
-        );
+        setErrorMessage(result.message || "Login failed. Please try again.");
       }
     } catch (err) {
-      setAuthenticationFailed(true);
-      setAuthenticationFailedReason(
-        "An unexpected error occurred. Please try again.",
-      );
+      setErrorMessage("An unexpected error occurred. Please try again.");
       console.error("Login error:", err);
     }
   };
@@ -52,52 +56,56 @@ function LoginForm() {
       </div>
 
       {/* form */}
-      {authenticationFailed && (
-        <p className="text-destructive mt-6 text-sm lg:text-base">
-          {authenticationFailedReason}
+      {errorMessage && (
+        <p
+          ref={errorRef}
+          className="text-destructive mt-6 text-sm lg:text-base"
+          aria-live="assertive"
+        >
+          {errorMessage}
         </p>
       )}
 
       <form
         action=""
-        className={`${authenticationFailed ? "mt-2" : "mt-6"} flex flex-col gap-y-4`}
+        className={cn("flex flex-col gap-y-4", errorMessage ? "mt-2" : "mt-6")}
         onSubmit={handleAuthSubmit}
       >
         {/* Email */}
-        <Input
-          icon="fa-solid fa-envelope"
-          placeholder="admin@umat.edu.gh"
-          type="email"
-          required
-          value={email}
-          onChange={(e) => {
-            setEmail(e.target.value);
-            // Clear error when user starts typing
-            if (authenticationFailed) {
-              setAuthenticationFailed(false);
-            }
-          }}
-          className="pl-10"
-          disabled={loading}
-        />
-
+        <div className="space-y-2">
+          <Label htmlFor="email-address">Email Address</Label>
+          <Input
+            ref={emailRef}
+            icon="fa-solid fa-envelope"
+            placeholder="admin@umat.edu.gh"
+            id="email-address"
+            type="email"
+            required
+            value={email}
+            onChange={(e) => {
+              setEmail(e.target.value);
+            }}
+            className="pl-10"
+            disabled={loading}
+          />
+        </div>
         {/* Password */}
-        <Input
-          icon="fa-solid fa-lock"
-          placeholder="••••••••"
-          type="password"
-          required
-          value={password}
-          onChange={(e) => {
-            setPassword(e.target.value);
-            // Clear error when user starts typing
-            if (authenticationFailed) {
-              setAuthenticationFailed(false);
-            }
-          }}
-          className="pl-10"
-          disabled={loading}
-        />
+        <div className="space-y-2">
+          <Label htmlFor="password">Password</Label>
+          <Input
+            id="password"
+            icon="fa-solid fa-lock"
+            placeholder="••••••••"
+            type="password"
+            required
+            value={password}
+            onChange={(e) => {
+              setPassword(e.target.value);
+            }}
+            className="pl-10"
+            disabled={loading}
+          />
+        </div>
 
         {/* Remember me & Forgot Password */}
         {/* <div className="flex items-center justify-between text-sm font-medium sm:text-[16px]">
