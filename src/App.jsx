@@ -1,18 +1,41 @@
 import { Route, Routes } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
 
 import AuthContext from "./context/AuthContext";
 import HomePage from "./pages/HomePage/HomePage";
 import LoginPage from "./pages/LoginPage/LoginPage";
+import NavigationContainer from "./components/Navigation/NavigationContainer";
 import NotFound from "./pages/NotFound/NotFound";
 import ProtectedRoute from "./components/ProtectedRoute";
 import SysUsersPage from "./pages/SystemUsersPage/SysUsersPage";
-import UserProfileProvider from "./context/providers/UserProfileContextProvider";
-import { useContext } from "react";
+import UserProfileContext from "./context/UserProfileContext";
 import { v4 as uuid } from "uuid";
-import NavigationContainer from "./components/Navigation/NavigationContainer";
 
 function App() {
   const { isAuthenticated } = useContext(AuthContext);
+  const { getUserProfile, setUserProfile, userProfile } =
+    useContext(UserProfileContext);
+
+  const [userProfileError, setUserProfileError] = useState(null);
+
+  useEffect(() => {
+    const getUserProfileData = async () => {
+      try {
+        setUserProfileError(null);
+        const result = await getUserProfile();
+
+        if (result.isSuccessful) {
+          setUserProfileError(null);
+        } else {
+          setUserProfileError(result.Message || "Failed to fetch user profile");
+        }
+      } catch (err) {
+        console.error("Error in getUsersProfileData:", err);
+        setUserProfileError("User Profile Error!");
+      }
+    };
+    getUserProfileData();
+  }, []);
 
   const navData = [
     {
@@ -69,12 +92,15 @@ function App() {
           path={nav.link}
           element={
             <ProtectedRoute isAuthenticated={isAuthenticated}>
-              <UserProfileProvider>
-                <div className="flex">
-                  <NavigationContainer navData={navData} />
-                  <nav.pageComponent navData={navData} />
-                </div>
-              </UserProfileProvider>
+              <div className="flex">
+                <NavigationContainer
+                  navData={navData}
+                  userProfile={userProfile}
+                  setUserProfile={setUserProfile}
+                  userProfileError={userProfileError}
+                />
+                <nav.pageComponent navData={navData} />
+              </div>
             </ProtectedRoute>
           }
         />

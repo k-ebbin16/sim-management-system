@@ -19,9 +19,8 @@ const UserProfileProvider = ({ children }) => {
       setUserProfile(data.responseData);
 
       return {
-        isSuccessful: data.isSuccessful,
+        isSuccessful: data.IsSuccessful,
         responseData: data.responseData,
-        userProfile: data.responseData,
       };
     } catch (error) {
       console.error(

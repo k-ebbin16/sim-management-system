@@ -9,11 +9,12 @@ import { useContext } from "react";
 
 library.add(fas, far, fab);
 
-function LogoutBtn() {
+function LogoutBtn({ setUserProfile }) {
   const { logout } = useContext(AuthContext);
 
   const handleLogout = () => {
     logout();
+    setUserProfile([]);
   };
 
   return (

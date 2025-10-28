@@ -13,9 +13,13 @@ import UserProfileContext from "../../../context/UserProfileContext";
 
 library.add(fas, far, fab);
 
-function SideBar({ navData, hamburgerIsOpen, userProfile }) {
-
-
+function SideBar({
+  navData,
+  hamburgerIsOpen,
+  userProfile,
+  setUserProfile,
+  userProfileError,
+}) {
   return (
     <aside
       className={`bg-sidebar text-sidebar-foreground fixed z-[999] flex h-dvh w-3/4 max-w-xs flex-col gap-y-4 pt-[80px] transition-all duration-300 ease-in-out lg:sticky lg:top-0 lg:left-0 lg:w-2/5 lg:translate-x-0 lg:pt-0 ${hamburgerIsOpen ? "translate-x-0 opacity-100" : "-translate-x-full opacity-0"} lg:opacity-100`}
@@ -39,6 +43,9 @@ function SideBar({ navData, hamburgerIsOpen, userProfile }) {
               {userProfile?.displayName}
             </p>
             <p className="text-sm lg:text-lg">System Admin</p>
+            {userProfileError && (
+              <p className="text-destructive text-sm">{userProfileError}</p>
+            )}
           </div>
         </div>
       </div>
@@ -66,7 +73,7 @@ function SideBar({ navData, hamburgerIsOpen, userProfile }) {
         <ThemeToggle />
 
         {/* Logout Button */}
-        <LogoutBtn />
+        <LogoutBtn setUserProfile={setUserProfile} />
       </div>
     </aside>
   );

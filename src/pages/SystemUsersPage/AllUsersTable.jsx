@@ -98,6 +98,7 @@ const AllUsersTable = () => {
     },
   ];
 
+  
   const getUsersData = async () => {
     try {
       setIsLoading(true);
@@ -116,7 +117,6 @@ const AllUsersTable = () => {
       setIsLoading(false);
     }
   };
-
   useEffect(() => {
     getUsersData();
   }, []);
