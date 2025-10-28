@@ -10,40 +10,8 @@ const AuthProvider = ({ children }) => {
     localStorage.getItem("refreshToken"),
   );
   const [isLoading, setIsLoading] = useState(true);
-  const [user, setUser] = useState(null); // Add user state
 
   const navigate = useNavigate();
-
-  // Function to decode user from token
-  const decodeUserFromToken = (token) => {
-    if (!token) return null;
-
-    try {
-      const payload = token.split(".")[1];
-      const decoded = JSON.parse(atob(payload));
-
-      return {
-        id: decoded.uid,
-        email:
-          decoded[
-            "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress"
-          ],
-        name: decoded[
-          "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"
-        ],
-        displayName:
-          decoded["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"],
-        roles:
-          decoded[
-            "http://schemas.microsoft.com/ws/2008/06/identity/claims/role"
-          ] || [],
-        permissions: decoded.permission || [],
-      };
-    } catch (error) {
-      console.error("Error decoding token:", error);
-      return null;
-    }
-  };
 
   useEffect(() => {
     TokenManager.setNavigate(navigate);
@@ -51,12 +19,7 @@ const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     setIsAuthenticated(!!token);
-    // Update user when token changes
-    if (token) {
-      setUser(decodeUserFromToken(token));
-    } else {
-      setUser(null);
-    }
+    
   }, [token]);
 
   // Initialize auth state on component mount
@@ -68,7 +31,6 @@ const AuthProvider = ({ children }) => {
       if (storedToken) {
         setToken(storedToken);
         setRefreshToken(storedRefreshToken);
-        setUser(decodeUserFromToken(storedToken)); // Decode user
         api.defaults.headers.common.Authorization = `Bearer ${storedToken}`;
       }
 
@@ -110,7 +72,6 @@ const AuthProvider = ({ children }) => {
       TokenManager.setTokens(newToken, newRefreshToken);
       setToken(newToken);
       setRefreshToken(newRefreshToken);
-      setUser(decodeUserFromToken(newToken)); // Decode and set user
 
       // Update axios default headers
       api.defaults.headers.common.Authorization = `Bearer ${newToken}`;
@@ -118,7 +79,6 @@ const AuthProvider = ({ children }) => {
       return {
         isSuccessful: true,
         token: newToken,
-        user: decodeUserFromToken(newToken), // Return user info
         message: "Login successful",
       };
     } catch (error) {
@@ -203,7 +163,6 @@ const AuthProvider = ({ children }) => {
     token,
     refreshToken,
     isLoading,
-    user, // Include user in context value
     login,
     logout,
     refreshAuthToken,

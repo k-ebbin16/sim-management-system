@@ -6,8 +6,8 @@ import { useState } from "react";
 function NavigationContainer({
   navData,
   userProfile,
-  setUserProfile,
   userProfileError,
+  currentUserRoles,
 }) {
   const [hamburgerIsOpen, setHamburgerIsOpen] = useState(false);
 
@@ -30,8 +30,8 @@ function NavigationContainer({
         hamburgerIsOpen={hamburgerIsOpen}
         navData={navData}
         userProfile={userProfile}
-        setUserprofile={setUserProfile}
         userProfileError={userProfileError}
+        currentUserRoles={currentUserRoles}
       />
     </>
   );

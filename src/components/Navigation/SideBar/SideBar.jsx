@@ -17,9 +17,22 @@ function SideBar({
   navData,
   hamburgerIsOpen,
   userProfile,
-  setUserProfile,
   userProfileError,
+  currentUserRoles,
 }) {
+  const hierarchy = [
+    "SuperAdmin",
+    "Administrator",
+    "TelecelAdministrator",
+    "Distributor",
+  ];
+
+  const assignedRoles = currentUserRoles
+    ?.filter((role) => role.isAssignedToUser)
+    .map((role) => role.roleName);
+
+  const highestRole = hierarchy.find((role) => assignedRoles.includes(role));
+
   return (
     <aside
       className={`bg-sidebar text-sidebar-foreground fixed z-[999] flex h-dvh w-3/4 max-w-xs flex-col gap-y-4 pt-[80px] transition-all duration-300 ease-in-out lg:sticky lg:top-0 lg:left-0 lg:w-2/5 lg:translate-x-0 lg:pt-0 ${hamburgerIsOpen ? "translate-x-0 opacity-100" : "-translate-x-full opacity-0"} lg:opacity-100`}
@@ -32,19 +45,24 @@ function SideBar({
         </div>
         {/* User Info */}
         <div className="flex items-center gap-x-4 p-6">
-          <div className="bg-sidebar-accent flex h-12 w-12 items-center justify-center overflow-hidden rounded-full lg:h-14 lg:w-14">
+          <div className="bg-sidebar-accent flex h-10 w-10 items-center justify-center overflow-hidden rounded-full">
             <FontAwesomeIcon
               icon="fa-solid fa-user "
-              className="inline-block text-2xl"
+              className="inline-block text-xl"
             />
           </div>
           <div className="flex flex-col justify-center">
-            <p className="text-sidebar-primary text-md lg:text-xl">
-              {userProfile?.displayName}
-            </p>
-            <p className="text-sm lg:text-lg">System Admin</p>
-            {userProfileError && (
+            {userProfileError ? (
               <p className="text-destructive text-sm">{userProfileError}</p>
+            ) : (
+              <>
+                <p className="text-sidebar-primary text-lg">
+                  {userProfile?.displayName}
+                </p>
+                <p className="text-sidebar-foreground/60 text-sm">
+                  {highestRole}
+                </p>
+              </>
             )}
           </div>
         </div>
@@ -73,7 +91,8 @@ function SideBar({
         <ThemeToggle />
 
         {/* Logout Button */}
-        <LogoutBtn setUserProfile={setUserProfile} />
+        <LogoutBtn
+        />
       </div>
     </aside>
   );

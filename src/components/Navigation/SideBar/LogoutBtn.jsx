@@ -6,15 +6,19 @@ import { far } from "@fortawesome/free-regular-svg-icons";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { useContext } from "react";
+import UserProfileContext from "../../../context/UserProfileContext";
 
 library.add(fas, far, fab);
 
-function LogoutBtn({ setUserProfile }) {
+function LogoutBtn() {
   const { logout } = useContext(AuthContext);
+  const { setUserProfile, setCurrentUserRoles } =
+    useContext(UserProfileContext);
 
   const handleLogout = () => {
     logout();
-    setUserProfile([]);
+    setUserProfile({});
+    setCurrentUserRoles([]);
   };
 
   return (

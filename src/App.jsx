@@ -13,8 +13,11 @@ import { v4 as uuid } from "uuid";
 
 function App() {
   const { isAuthenticated } = useContext(AuthContext);
-  const { getUserProfile, setUserProfile, userProfile } =
-    useContext(UserProfileContext);
+  const {
+    getCurrentUserProfile,
+    userProfile,
+    currentUserRoles,
+  } = useContext(UserProfileContext);
 
   const [userProfileError, setUserProfileError] = useState(null);
 
@@ -22,20 +25,22 @@ function App() {
     const getUserProfileData = async () => {
       try {
         setUserProfileError(null);
-        const result = await getUserProfile();
+        const profileResult = await getCurrentUserProfile();
 
-        if (result.isSuccessful) {
+        if (profileResult.isSuccessful) {
           setUserProfileError(null);
         } else {
-          setUserProfileError(result.Message || "Failed to fetch user profile");
+          setUserProfileError(
+            profileResult.message || "Failed to fetch user profile",
+          );
         }
       } catch (err) {
         console.error("Error in getUsersProfileData:", err);
         setUserProfileError("User Profile Error!");
       }
     };
-    getUserProfileData();
-  }, []);
+    if (isAuthenticated) getUserProfileData();
+  }, [isAuthenticated]);
 
   const navData = [
     {
@@ -96,8 +101,8 @@ function App() {
                 <NavigationContainer
                   navData={navData}
                   userProfile={userProfile}
-                  setUserProfile={setUserProfile}
                   userProfileError={userProfileError}
+                  currentUserRoles={currentUserRoles}
                 />
                 <nav.pageComponent navData={navData} />
               </div>
