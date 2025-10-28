@@ -3,7 +3,7 @@ import MobileHeader from "./MobileHeader/MobileHeader";
 import SideBar from "./SideBar/SideBar";
 import { useState } from "react";
 
-function NavigationContainer({ navData }) {
+function NavigationContainer({ navData, userProfile }) {
   const [hamburgerIsOpen, setHamburgerIsOpen] = useState(false);
 
   return (
@@ -21,7 +21,7 @@ function NavigationContainer({ navData }) {
       />
 
       {/* Main Sidebar */}
-      <SideBar hamburgerIsOpen={hamburgerIsOpen} navData={navData} />
+      <SideBar hamburgerIsOpen={hamburgerIsOpen} navData={navData} userProfile={userProfile}/>
     </>
   );
 }

@@ -8,16 +8,18 @@ import { far } from "@fortawesome/free-regular-svg-icons";
 /* import all the icons in Free Solid, Free Regular, and Brands styles */
 import { fas } from "@fortawesome/free-solid-svg-icons";
 import { library } from "@fortawesome/fontawesome-svg-core";
+// import { useContext, useEffect, useState } from "react";
+import UserProfileContext from "../../../context/UserProfileContext";
 
 library.add(fas, far, fab);
 
-function SideBar({ navData, hamburgerIsOpen }) {
+function SideBar({ navData, hamburgerIsOpen, userProfile }) {
+
+
   return (
     <aside
       className={`bg-sidebar text-sidebar-foreground fixed z-[999] flex h-dvh w-3/4 max-w-xs flex-col gap-y-4 pt-[80px] transition-all duration-300 ease-in-out lg:sticky lg:top-0 lg:left-0 lg:w-2/5 lg:translate-x-0 lg:pt-0 ${hamburgerIsOpen ? "translate-x-0 opacity-100" : "-translate-x-full opacity-0"} lg:opacity-100`}
     >
-      {/* Backdrop */}
-
       {/* User Info & Logo*/}
       <div className="border-sidebar-border flex flex-col border-b">
         {/* Logo */}
@@ -33,14 +35,13 @@ function SideBar({ navData, hamburgerIsOpen }) {
             />
           </div>
           <div className="flex flex-col justify-center">
-            <p className="text-sidebar-primary text-lg lg:text-xl">
-              Kwamina Ebbin
+            <p className="text-sidebar-primary text-md lg:text-xl">
+              {userProfile?.displayName}
             </p>
             <p className="text-sm lg:text-lg">System Admin</p>
           </div>
         </div>
       </div>
-
       {/* Nav Box */}
       <nav className="border-sidebar-border flex w-full flex-1 flex-col gap-y-2 border-b p-4">
         {navData.map(({ id, title, link, icon }) => (
@@ -55,12 +56,11 @@ function SideBar({ navData, hamburgerIsOpen }) {
               } transition-background flex items-center gap-6 rounded-md px-4 py-6 font-medium transition duration-400`
             }
           >
-            <i className={`${icon} text-lg`}></i>
+            <FontAwesomeIcon icon={icon} className="text-lg" />
             <span>{title}</span>
           </NavLink>
         ))}
       </nav>
-
       <div className="w-full px-8 pb-8">
         {/* Theme Toggler */}
         <ThemeToggle />

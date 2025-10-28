@@ -5,10 +5,11 @@ import HomePage from "./pages/HomePage/HomePage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import NotFound from "./pages/NotFound/NotFound";
 import ProtectedRoute from "./components/ProtectedRoute";
+import SysUsersPage from "./pages/SystemUsersPage/SysUsersPage";
+import UserProfileProvider from "./context/providers/UserProfileContextProvider";
 import { useContext } from "react";
 import { v4 as uuid } from "uuid";
-import SysUsersPage from "./pages/SystemUsersPage/SysUsersPage";
-import UserDataProvider from "./context/providers/UsersDataContextProvider";
+import NavigationContainer from "./components/Navigation/NavigationContainer";
 
 function App() {
   const { isAuthenticated } = useContext(AuthContext);
@@ -68,7 +69,12 @@ function App() {
           path={nav.link}
           element={
             <ProtectedRoute isAuthenticated={isAuthenticated}>
-              <nav.pageComponent navData={navData} />
+              <UserProfileProvider>
+                <div className="flex">
+                  <NavigationContainer navData={navData} />
+                  <nav.pageComponent navData={navData} />
+                </div>
+              </UserProfileProvider>
             </ProtectedRoute>
           }
         />
