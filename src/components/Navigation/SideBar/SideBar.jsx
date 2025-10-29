@@ -41,7 +41,7 @@ function SideBar({
       <div className="border-sidebar-border flex flex-col border-b">
         {/* Logo */}
         <div className="border-sidebar-border hidden w-full items-center gap-4 border-b p-6 lg:flex">
-          <Logo className="bg-accent text-primary h-12 w-12 text-3xl" />
+          <Logo className="bg-sidebar-primary text-sidebar h-12 w-12 text-3xl" />
         </div>
         {/* User Info */}
         <div className="flex items-center gap-x-4 p-6">

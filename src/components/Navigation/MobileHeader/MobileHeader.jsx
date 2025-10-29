@@ -13,7 +13,7 @@ function MobileHeader({ hamburgerIsOpen, setHamburgerIsOpen }) {
 
       <div className="flex w-full items-center justify-end gap-4">
         <Logo
-          className="bg-accent text-primary h-10 w-10 text-2xl"
+          className="bg-sidebar-primary text-sidebar h-10 w-10 text-2xl"
           textSize="text-xl"
         />
       </div>
