@@ -10,8 +10,6 @@ import { far } from "@fortawesome/free-regular-svg-icons";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 import { library } from "@fortawesome/fontawesome-svg-core";
 
-/* import all the icons in Free Solid, Free Regular, and Brands styles */
-
 library.add(fas, far, fab);
 
 const AllUsersTable = () => {
@@ -21,7 +19,6 @@ const AllUsersTable = () => {
 
   const { getUsers, users } = useContext(UsersDataContext);
 
-  // Define columns configuration with mobile-friendly widths
   const columns = [
     {
       key: "displayName",
@@ -35,9 +32,6 @@ const AllUsersTable = () => {
             <div className="text-card-foreground text-md truncate font-medium">
               {user.displayName || "N/A"}
             </div>
-            {/* <div className="text-muted-foreground truncate text-sm">
-              {user.email || "N/A"}
-            </div> */}
           </div>
         </div>
       ),
@@ -98,7 +92,6 @@ const AllUsersTable = () => {
     },
   ];
 
-  
   const getUsersData = async () => {
     try {
       setIsLoading(true);
@@ -117,6 +110,7 @@ const AllUsersTable = () => {
       setIsLoading(false);
     }
   };
+
   useEffect(() => {
     getUsersData();
   }, []);
@@ -134,7 +128,11 @@ const AllUsersTable = () => {
   };
 
   const handleRetry = () => {
-    getUsersData();
+    getUsersData(true);
+  };
+
+  const handleRefresh = () => {
+    getUsersData(true);
   };
 
   return (
@@ -145,7 +143,9 @@ const AllUsersTable = () => {
       onSearchChange={setSearchTerm}
       searchPlaceholder="Search users by name or email..."
       onAdd={handleAddUser}
+      onRefresh={handleRefresh}
       addButtonText="Add User"
+      refreshButtonText="Refresh"
       title="User Management"
       description="Manage user accounts, permissions, and access levels across the system."
       isLoading={isLoading}
@@ -153,6 +153,7 @@ const AllUsersTable = () => {
       onRetry={handleRetry}
       showSearch={true}
       showAddButton={true}
+      showRefreshButton={true}
     />
   );
 };

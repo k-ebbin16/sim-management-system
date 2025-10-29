@@ -19,7 +19,7 @@ const RolesDataProvider = ({ children }) => {
       return {
         isSuccessful: data.isSuccessful,
         responseData: data.responseData,
-        Roles: data.responseData,
+        roles: data.responseData,
       };
     } catch (error) {
       console.error(
@@ -38,7 +38,7 @@ const RolesDataProvider = ({ children }) => {
   };
 
   return (
-    <RolesDataContext.Provider value={{ getRoles, setRoles, roles: roles }}>
+    <RolesDataContext.Provider value={{ getRoles, setRoles, roles }}>
       {children}
     </RolesDataContext.Provider>
   );

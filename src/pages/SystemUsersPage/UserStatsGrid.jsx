@@ -1,3 +1,5 @@
+import { useContext, useEffect } from "react";
+
 import Card from "../../components/Card/Card";
 import CardContent from "../../components/Card/CardContent";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -5,10 +7,8 @@ import RolesDataContext from "../../context/RolesDataContext";
 import { cn } from "../../utils/util";
 import { fab } from "@fortawesome/free-brands-svg-icons";
 import { far } from "@fortawesome/free-regular-svg-icons";
-/* import all the icons in Free Solid, Free Regular, and Brands styles */
 import { fas } from "@fortawesome/free-solid-svg-icons";
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { useContext, useEffect } from "react";
 
 library.add(fas, far, fab);
 

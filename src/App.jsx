@@ -1,23 +1,23 @@
 import { Route, Routes } from "react-router-dom";
-import { useContext, useEffect, useState } from "react";
+import { Suspense, lazy, useContext, useEffect, useState } from "react";
 
 import AuthContext from "./context/AuthContext";
-import HomePage from "./pages/HomePage/HomePage";
-import LoginPage from "./pages/LoginPage/LoginPage";
 import NavigationContainer from "./components/Navigation/NavigationContainer";
-import NotFound from "./pages/NotFound/NotFound";
 import ProtectedRoute from "./components/ProtectedRoute";
-import SysUsersPage from "./pages/SystemUsersPage/SysUsersPage";
+import PulseLoading from "./components/Loading/PulseLoading";
 import UserProfileContext from "./context/UserProfileContext";
 import { v4 as uuid } from "uuid";
 
+// Lazy load components
+const LoginPage = lazy(() => import("./pages/LoginPage/LoginPage"));
+const HomePage = lazy(() => import("./pages/HomePage/HomePage"));
+const SysUsersPage = lazy(() => import("./pages/SystemUsersPage/SysUsersPage"));
+const NotFound = lazy(() => import("./pages/NotFound/NotFound"));
+
 function App() {
   const { isAuthenticated } = useContext(AuthContext);
-  const {
-    getCurrentUserProfile,
-    userProfile,
-    currentUserRoles,
-  } = useContext(UserProfileContext);
+  const { getCurrentUserProfile, userProfile, currentUserRoles } =
+    useContext(UserProfileContext);
 
   const [userProfileError, setUserProfileError] = useState(null);
 
@@ -88,7 +88,11 @@ function App() {
       {/* Login Page */}
       <Route
         path="/login"
-        element={<LoginPage isAuthenticated={isAuthenticated} />}
+        element={
+          <Suspense fallback={<PulseLoading />}>
+            <LoginPage isAuthenticated={isAuthenticated} />
+          </Suspense>
+        }
       />
 
       {navData.map((nav) => (
@@ -104,7 +108,9 @@ function App() {
                   userProfileError={userProfileError}
                   currentUserRoles={currentUserRoles}
                 />
-                <nav.pageComponent navData={navData} />
+                <Suspense fallback={<PulseLoading />}>
+                  <nav.pageComponent navData={navData} />
+                </Suspense>
               </div>
             </ProtectedRoute>
           }
@@ -112,7 +118,14 @@ function App() {
       ))}
 
       {/* Not Found */}
-      <Route path="*" element={<NotFound />} />
+      <Route
+        path="*"
+        element={
+          <Suspense fallback={<PulseLoading />}>
+            <NotFound />
+          </Suspense>
+        }
+      />
     </Routes>
   );
 }

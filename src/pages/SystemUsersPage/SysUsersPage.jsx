@@ -1,8 +1,9 @@
-import NavigationContainer from "../../components/Navigation/NavigationContainer";
-import AllUsersTable from "./AllUsersTable";
-import UserStatsGrid from "./UserStatsGrid";
-import RolesDataProvider from "../../context/providers/RolesDataContextProvider";
-import UserDataProvider from "../../context/providers/UsersDataContextProvider";
+import { Suspense, lazy } from "react";
+
+import PulseLoading from "../../components/Loading/PulseLoading";
+
+const AllUsersTable = lazy(() => import("./AllUsersTable"));
+const UserStatsGrid = lazy(() => import("./UserStatsGrid"));
 
 function SysUsersPage() {
   return (
@@ -18,14 +19,14 @@ function SysUsersPage() {
       </section>
 
       {/* Users Stats Grid */}
-      <RolesDataProvider>
+
+      <Suspense fallback={<PulseLoading />}>
         <UserStatsGrid />
-      </RolesDataProvider>
+      </Suspense>
 
       {/* Users Table */}
-      <UserDataProvider>
-        <AllUsersTable />
-      </UserDataProvider>
+
+      <AllUsersTable />
     </main>
   );
 }
