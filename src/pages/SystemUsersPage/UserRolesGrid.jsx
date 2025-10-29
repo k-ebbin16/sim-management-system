@@ -12,11 +12,12 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 
 library.add(fas, far, fab);
 
-function UserStatsGrid() {
+function UserRolesGrid() {
   const { getRoles, roles } = useContext(RolesDataContext);
 
   const getRolesData = async () => {
     try {
+      // eslint-disable-next-line no-unused-vars
       const result = await getRoles();
     } catch (err) {
       console.error("Error in getRolesData:", err);
@@ -25,6 +26,7 @@ function UserStatsGrid() {
 
   useEffect(() => {
     getRolesData();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -54,4 +56,4 @@ function UserStatsGrid() {
   );
 }
 
-export default UserStatsGrid;
+export default UserRolesGrid;

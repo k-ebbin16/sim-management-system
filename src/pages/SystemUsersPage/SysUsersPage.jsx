@@ -3,7 +3,7 @@ import { Suspense, lazy } from "react";
 import PulseLoading from "../../components/Loading/PulseLoading";
 
 const AllUsersTable = lazy(() => import("./AllUsersTable"));
-const UserStatsGrid = lazy(() => import("./UserStatsGrid"));
+const UserRolesGrid = lazy(() => import("./UserRolesGrid"));
 
 function SysUsersPage() {
   return (
@@ -21,7 +21,7 @@ function SysUsersPage() {
       {/* Users Stats Grid */}
 
       <Suspense fallback={<PulseLoading />}>
-        <UserStatsGrid />
+        <UserRolesGrid />
       </Suspense>
 
       {/* Users Table */}
