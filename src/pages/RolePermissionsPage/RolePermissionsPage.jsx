@@ -8,7 +8,7 @@ import { fab } from "@fortawesome/free-brands-svg-icons";
 import { far } from "@fortawesome/free-regular-svg-icons";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import {
   Tabs,
@@ -58,13 +58,15 @@ function RolePermissionsPage() {
     <main className="bg-background min-h-dvh w-full flex-1 p-4 pt-20 sm:p-6 sm:pt-6">
       <div className="mb-6">
         {/* Back Button */}
-        <Button
-          className="bg-accent text-accent-foreground hover:bg-accent/70 mb-4 mt-3  w-full sm:w-auto"
-          iconBeforeText={true}
-          icon="fa-solid fa-arrow-left"
-        >
-          Back to Users
-        </Button>
+        <Link to="/system-users">
+          <Button
+            className="bg-accent text-accent-foreground hover:bg-accent/70 mt-3 mb-4 w-full sm:w-auto"
+            iconBeforeText={true}
+            icon="fa-solid fa-arrow-left"
+          >
+            Back to Users
+          </Button>
+        </Link>
 
         {/* Header Section */}
         <div className="mb-4 flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
@@ -170,7 +172,7 @@ function RolePermissionsPage() {
         {/* Permissions Card */}
         <Card>
           {/* Title and Description Section */}
-          <div className="mb-4 p-4 pb-0 ">
+          <div className="mb-4 p-4 pb-0">
             <div className="flex flex-col gap-2">
               <h2 className="text-card-foreground text-lg font-medium sm:text-xl">
                 Manage Permissions
@@ -182,7 +184,11 @@ function RolePermissionsPage() {
             </div>
           </div>
           <CardContent className="p-4v pt-0">
-            <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+            <Tabs
+              value={activeTab}
+              onValueChange={setActiveTab}
+              className="w-full"
+            >
               <TabsList className="h-auto w-full flex-wrap justify-start gap-1 sm:gap-2">
                 <TabsTrigger
                   value="all"

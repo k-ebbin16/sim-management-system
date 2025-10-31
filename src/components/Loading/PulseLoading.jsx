@@ -9,7 +9,7 @@ const PulseLoading = ({ size = "medium", text = "Loading..." }) => {
   };
 
   return (
-    <div className="grid place-items-center w-full h-screen">
+    <div className="grid h-screen w-full place-items-center">
       <div className="flex flex-col items-center justify-center gap-3 p-6">
         <div className={cn("relative", sizeClasses[size])}>
           <div className="bg-primary/20 absolute inset-0 animate-ping rounded-full"></div>

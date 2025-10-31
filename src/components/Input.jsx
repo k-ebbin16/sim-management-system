@@ -8,14 +8,7 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 
 library.add(fas, far, fab);
 
-function Input({
-  className,
-  id = "",
-  ref,
-  type,
-  icon,
-  ...props
-}) {
+function Input({ className, id = "", ref, type, icon, ...props }) {
   return (
     <div className="relative">
       {icon && (

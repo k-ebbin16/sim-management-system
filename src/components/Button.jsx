@@ -13,10 +13,10 @@ library.add(fas, far, fab);
 
 const Button = ({
   onClick,
-  children ,
+  children,
   icon = "",
   iconBeforeText = false,
-  className
+  className,
 }) => {
   return (
     <button
@@ -26,7 +26,7 @@ const Button = ({
         "bg-primary text-primary-foreground hover:bg-primary/90",
         "focus:ring-ring transition-colors duration-300 focus:ring-2 focus:ring-offset-2",
         iconBeforeText ? "flex-row-reverse" : "flex-row",
-        className
+        className,
       )}
     >
       {children}

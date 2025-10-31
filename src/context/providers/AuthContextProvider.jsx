@@ -19,7 +19,6 @@ const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     setIsAuthenticated(!!token);
-    
   }, [token]);
 
   // Initialize auth state on component mount

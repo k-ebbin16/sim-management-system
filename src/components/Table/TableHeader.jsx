@@ -59,7 +59,11 @@ const TableHeader = ({
             )}
 
             {showAddButton && (
-              <Button onClick={onAdd} icon="fa-solid fa-plus" iconBeforeText={true}>
+              <Button
+                onClick={onAdd}
+                icon="fa-solid fa-plus"
+                iconBeforeText={true}
+              >
                 {addButtonText}
               </Button>
             )}

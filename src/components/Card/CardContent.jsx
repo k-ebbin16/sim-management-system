@@ -3,10 +3,7 @@ import { cn } from "../../utils/util";
 function CardContent({ children, className = "", ...props }) {
   return (
     <div
-      className={cn(
-        "flex flex-row items-center justify-between ",
-        className,
-      )}
+      className={cn("flex flex-row items-center justify-between", className)}
       {...props}
     >
       {children}

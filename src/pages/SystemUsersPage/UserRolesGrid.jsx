@@ -34,26 +34,23 @@ function UserRolesGrid() {
     <section className="mb-6 grid grid-cols-1 gap-4 md:grid-cols-2 2xl:grid-cols-4">
       {roles.map((role) => (
         <NavLink key={role.id} to={`/roles/permissions/${role.id}`}>
-          <Card
-            
-            className="hover:border-primary/50 cursor-pointer border-2 transition-shadow hover:shadow-md"
-          >
-              <div className="pb-3">
-                <div className="mb-4 flex items-start justify-between">
-                  <FontAwesomeIcon
-                    icon="fa-solid fa-shield"
-                    className={cn(
-                      "text-primary/30 h-8 w-8 text-3xl",
-                      role.name === "SuperAdmin" ? "text-accent/30" : "",
-                    )}
-                  />
-                  <FontAwesomeIcon icon="fa-solid fa-chevron-right" />
-                </div>
-                <p className="text-lg">{role.name}</p>
-                <p className="text-muted-foreground text-sm">
-                  {role.description}
-                </p>
+          <Card className="hover:border-primary/50 cursor-pointer border-2 p-8 transition-shadow hover:shadow-md">
+            <div className="pb-3">
+              <div className="mb-4 flex items-start justify-between">
+                <FontAwesomeIcon
+                  icon="fa-solid fa-shield"
+                  className={cn(
+                    "text-primary/30 h-8 w-8 text-3xl",
+                    role.name === "SuperAdmin" ? "text-accent/30" : "",
+                  )}
+                />
+                <FontAwesomeIcon icon="fa-solid fa-chevron-right" />
               </div>
+              <p className="text-lg">{role.name}</p>
+              <p className="text-muted-foreground text-sm">
+                {role.description}
+              </p>
+            </div>
           </Card>
         </NavLink>
       ))}
