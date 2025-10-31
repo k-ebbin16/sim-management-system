@@ -1,6 +1,6 @@
 // components/Table/TableHeader.jsx
 import SearchBar from "../SearchBar";
-import AddButton from "../AddButton";
+import Button from "../Button";
 
 const TableHeader = ({
   title,
@@ -59,7 +59,9 @@ const TableHeader = ({
             )}
 
             {showAddButton && (
-              <AddButton onClick={onAdd} text={addButtonText} />
+              <Button onClick={onAdd} icon="fa-solid fa-plus" iconBeforeText={true}>
+                {addButtonText}
+              </Button>
             )}
           </div>
         )}

@@ -113,6 +113,7 @@ const AllUsersTable = () => {
 
   useEffect(() => {
     getUsersData();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleAddUser = () => {

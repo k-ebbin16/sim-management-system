@@ -4,7 +4,7 @@ function CardContent({ children, className = "", ...props }) {
   return (
     <div
       className={cn(
-        "flex flex-row items-center justify-between pb-8",
+        "flex flex-row items-center justify-between ",
         className,
       )}
       {...props}

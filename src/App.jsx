@@ -13,6 +13,9 @@ const LoginPage = lazy(() => import("./pages/LoginPage/LoginPage"));
 const HomePage = lazy(() => import("./pages/HomePage/HomePage"));
 const SysUsersPage = lazy(() => import("./pages/SystemUsersPage/SysUsersPage"));
 const NotFound = lazy(() => import("./pages/NotFound/NotFound"));
+const RolePermissionsPage = lazy(
+  () => import("./pages/RolePermissionsPage/RolePermissionsPage"),
+);
 
 function App() {
   const { isAuthenticated } = useContext(AuthContext);
@@ -93,9 +96,9 @@ function App() {
       link: "/roles/permissions/:roleId",
       description: "Manage role permissions",
       icon: "fa-solid fa-user-tie",
+      pageComponent: RolePermissionsPage,
       addToNav: false,
     },
-    
   ];
 
   return (
