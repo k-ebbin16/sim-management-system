@@ -7,7 +7,7 @@ const UserRolesGrid = lazy(() => import("./UserRolesGrid"));
 
 function SysUsersPage() {
   return (
-    <main className="bg-background min-h-dvh w-full flex-1 p-6 pt-[80px] lg:w-3/5 lg:pt-6">
+    <main className="bg-background min-h-dvh w-full flex-1 p-6 pt-24 lg:w-3/5 lg:pt-6">
       {/* Hero Section */}
       <section className="relative mb-6">
         <h1 className="text-2xl font-semibold md:text-3xl lg:text-4xl">

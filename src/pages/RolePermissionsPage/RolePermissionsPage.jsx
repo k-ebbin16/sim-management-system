@@ -1,21 +1,24 @@
-import Button from "../../components/Button";
-import Card from "../../components/Card/Card";
-import CardContent from "../../components/Card/CardContent";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import api from "../../api/axios";
-import { cn } from "../../utils/util";
-import { fab } from "@fortawesome/free-brands-svg-icons";
-import { far } from "@fortawesome/free-regular-svg-icons";
-import { fas } from "@fortawesome/free-solid-svg-icons";
-import { library } from "@fortawesome/fontawesome-svg-core";
-import { useParams, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
 import {
   Tabs,
   TabsContent,
   TabsList,
   TabsTrigger,
 } from "../../components/Tabs";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+
+import Button from "../../components/Button";
+import Card from "../../components/Card/Card";
+import CardContent from "../../components/Card/CardContent";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Input from "../../components/Input";
+import api from "../../api/axios";
+import { cn } from "../../utils/util";
+import { fab } from "@fortawesome/free-brands-svg-icons";
+import { far } from "@fortawesome/free-regular-svg-icons";
+import { fas } from "@fortawesome/free-solid-svg-icons";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import SearchBar from "../../components/SearchBar";
 
 library.add(fas, far, fab);
 
@@ -27,6 +30,7 @@ function RolePermissionsPage() {
   const [rolePermissions, setRolePermissions] = useState([]);
   const [hasChanges, setHasChanges] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     const getRolePermissions = async () => {
@@ -111,14 +115,24 @@ function RolePermissionsPage() {
     navigate("/system-users"); // Adjust the route as needed
   };
 
+  // Filter permissions based on search query and active tab
+  const filteredPermissions = rolePermissions.filter((permission) => {
+    const matchesSearch =
+      permission.description
+        ?.toLowerCase()
+        .includes(searchQuery.toLowerCase()) ||
+      permission.claimValue
+        ?.toLowerCase()
+        .includes(searchQuery.toLowerCase()) ||
+      permission.group?.toLowerCase().includes(searchQuery.toLowerCase());
+
+    const matchesTab = activeTab === "all" || permission.group === activeTab;
+
+    return matchesSearch && matchesTab;
+  });
+
   // Extract unique groups/categories from permissions
   const categories = [...new Set(rolePermissions.map((p) => p.group))];
-
-  // Filter permissions based on active tab
-  const filteredPermissions =
-    activeTab === "all"
-      ? rolePermissions
-      : rolePermissions.filter((p) => p.group === activeTab);
 
   // Calculate statistics
   const totalPermissions = rolePermissions.length;
@@ -127,8 +141,11 @@ function RolePermissionsPage() {
   ).length;
   const disabledPermissions = totalPermissions - enabledPermissions;
 
+  // Calculate search results count
+  const searchResultsCount = filteredPermissions.length;
+
   return (
-    <main className="bg-background min-h-dvh w-full flex-1 p-4 pt-20 sm:p-6 sm:pt-6">
+    <main className="bg-background min-h-dvh w-full flex-1 p-4 pt-24 sm:p-6 sm:pt-8">
       <div className="mb-6">
         {/* Back Button */}
         <Button
@@ -173,25 +190,7 @@ function RolePermissionsPage() {
         </div>
 
         {/* Stats Cards */}
-        <div className="mb-6 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
-          <Card className="sm:min-w-0">
-            <CardContent className="h-full w-full p-3 sm:p-4">
-              <div className="flex w-full items-center justify-between">
-                <div>
-                  <p className="text-muted-foreground text-xs sm:text-sm">
-                    Total Users
-                  </p>
-                  <p className="text-primary text-lg sm:text-xl lg:text-2xl">
-                    855
-                  </p>
-                </div>
-                <FontAwesomeIcon
-                  icon="fa-solid fa-users"
-                  className="text-primary/30 h-6 w-6 sm:h-8 sm:w-8"
-                />
-              </div>
-            </CardContent>
-          </Card>
+        <div className="mb-6 grid grid-cols-1 gap-3 sm:gap-4 lg:grid-cols-3">
           <Card className="sm:min-w-0">
             <CardContent className="h-full w-full p-3 sm:p-4">
               <div className="flex w-full items-center justify-between">
@@ -262,29 +261,87 @@ function RolePermissionsPage() {
               </p>
             </div>
           </div>
-          <CardContent className="p-4 sm:p-6">
-            <Tabs value={activeTab} onValueChange={setActiveTab}>
+
+          {/* Search Bar */}
+          <div className="px-4 pb-2">
+            <div className="relative">
+              <SearchBar
+                className="sm:w-full"
+                icon="fa-solid fa-search"
+                placeholder="Search permissions by name, description, or group..."
+                type="text"
+                value={searchQuery}
+                onChange={setSearchQuery}
+              />
+
+              {searchQuery && (
+                <button
+                  onClick={() => setSearchQuery("")}
+                  className="text-muted-foreground hover:text-foreground absolute top-1/2 right-3 -translate-y-1/2 transform"
+                >
+                  <FontAwesomeIcon
+                    icon="fa-solid fa-times"
+                    className="h-4 w-4"
+                  />
+                </button>
+              )}
+            </div>
+          </div>
+
+          <CardContent className="p-4 pt-0">
+            <Tabs
+              value={activeTab}
+              onValueChange={setActiveTab}
+              className="w-full"
+            >
               <TabsList className="h-auto w-full flex-wrap justify-start gap-1 sm:gap-2">
                 <TabsTrigger
                   value="all"
                   className="px-2 py-1.5 text-xs sm:px-3 sm:py-2 sm:text-sm"
                 >
-                  All ({totalPermissions})
+                  All ({searchQuery ? searchResultsCount : totalPermissions})
                 </TabsTrigger>
-                {categories.map((category) => (
-                  <TabsTrigger
-                    key={category}
-                    value={category}
-                    className="px-2 py-1.5 text-xs sm:px-3 sm:py-2 sm:text-sm"
-                  >
-                    {category} (
-                    {rolePermissions.filter((p) => p.group === category).length}
-                    )
-                  </TabsTrigger>
-                ))}
+                {categories.map((category) => {
+                  const categoryCount = searchQuery
+                    ? filteredPermissions.filter((p) => p.group === category)
+                        .length
+                    : rolePermissions.filter((p) => p.group === category)
+                        .length;
+
+                  return (
+                    <TabsTrigger
+                      key={category}
+                      value={category}
+                      className="px-2 py-1.5 text-xs sm:px-3 sm:py-2 sm:text-sm"
+                    >
+                      {category} ({categoryCount})
+                    </TabsTrigger>
+                  );
+                })}
               </TabsList>
 
               <TabsContent value={activeTab} className="mt-4 sm:mt-6">
+                {/* Search Results Info */}
+                {searchQuery && (
+                  <div className="mb-4 flex items-center justify-between">
+                    <p className="text-muted-foreground text-sm">
+                      {searchResultsCount} result
+                      {searchResultsCount !== 1 ? "s" : ""} found for "
+                      {searchQuery}"
+                    </p>
+                    <button
+                      onClick={() => setSearchQuery("")}
+                      className="text-primary hover:text-primary/80 flex items-center gap-1 text-sm font-medium"
+                    >
+                      <FontAwesomeIcon
+                        icon="fa-solid fa-times"
+                        className="h-3 w-3"
+                      />
+                      Clear search
+                    </button>
+                  </div>
+                )}
+
                 <div className="space-y-3 sm:space-y-4">
                   {filteredPermissions.length > 0 ? (
                     filteredPermissions.map((permission) => (
@@ -341,8 +398,18 @@ function RolePermissionsPage() {
                         className="text-muted-foreground/30 mx-auto mb-3 h-8 w-8 sm:mb-4 sm:h-12 sm:w-12"
                       />
                       <p className="text-muted-foreground text-sm sm:text-base">
-                        No permissions found matching your search
+                        {searchQuery
+                          ? `No permissions found for "${searchQuery}"`
+                          : "No permissions found matching your search"}
                       </p>
+                      {searchQuery && (
+                        <button
+                          onClick={() => setSearchQuery("")}
+                          className="text-primary hover:text-primary/80 mt-2 text-sm font-medium"
+                        >
+                          Clear search
+                        </button>
+                      )}
                     </div>
                   )}
                 </div>

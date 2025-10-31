@@ -18,7 +18,7 @@ const TableHeader = ({
   return (
     <>
       {/* Title and Description Section */}
-      <div className="mb-6">
+      <div className="mb-6 flex justify-between flex-col lg:flex-row">
         <div className="flex flex-col gap-2 sm:gap-3">
           <h2 className="text-card-foreground text-xl font-medium sm:text-2xl">
             {title}
@@ -29,12 +29,19 @@ const TableHeader = ({
             </p>
           )}
         </div>
+        <div>
+          {showAddButton && (
+            <Button onClick={onAdd} icon="fa-solid fa-plus" iconBeforeText={true}>
+              {addButtonText}
+            </Button>
+          )}
+        </div>
       </div>
 
       {/* Search and Actions Section */}
-      <div className="mb-6 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
+      <div className="mb-6 flex flex-col items-start justify-between  sm:flex-row sm:items-center w-full">
         {/* Results Count - Now on the left */}
-        <div className="text-muted-foreground text-sm">
+        <div className="text-muted-foreground text-sm text-nowrap mb-2 lg:mb-0">
           Showing {filteredCount} of {totalCount} items
           {searchTerm && (
             <span>
@@ -48,27 +55,16 @@ const TableHeader = ({
           )}
         </div>
 
-        {(showSearch || showAddButton) && (
-          <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
+    
+          <div className="flex  flex-col gap-3 sm:flex-row sm:justify-between">
             {showSearch && (
-              <SearchBar
+            <SearchBar
                 value={searchTerm}
                 onChange={onSearchChange}
                 placeholder={searchPlaceholder}
               />
             )}
-
-            {showAddButton && (
-              <Button
-                onClick={onAdd}
-                icon="fa-solid fa-plus"
-                iconBeforeText={true}
-              >
-                {addButtonText}
-              </Button>
-            )}
           </div>
-        )}
       </div>
     </>
   );

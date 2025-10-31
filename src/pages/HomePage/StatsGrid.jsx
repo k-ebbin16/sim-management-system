@@ -37,7 +37,7 @@ function StatsGrid() {
     <section className="mb-8 grid grid-cols-1 gap-6 max-[1440px]:grid-cols-2 max-lg:grid-cols-2 max-sm:grid-cols-1 min-[1440px]:grid-cols-4">
       {stats.map((stat, index) => {
         return (
-          <Card key={index}>
+          <Card key={index} className="p-8">
             <CardContent>
               <div className="text-muted-foreground text-lg font-medium">
                 {stat.title}
