@@ -9,7 +9,6 @@ import { far } from "@fortawesome/free-regular-svg-icons";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 import { library } from "@fortawesome/fontawesome-svg-core";
 // import { useContext, useEffect, useState } from "react";
-import UserProfileContext from "../../../context/UserProfileContext";
 
 library.add(fas, far, fab);
 
@@ -69,30 +68,32 @@ function SideBar({
       </div>
       {/* Nav Box */}
       <nav className="border-sidebar-border flex w-full flex-1 flex-col gap-y-2 border-b p-4">
-        {navData.map(({ id, title, link, icon }) => (
-          <NavLink
-            to={link}
-            key={id}
-            className={({ isActive }) =>
-              `${
-                isActive
-                  ? "bg-sidebar-accent text-sidebar-accent-foreground"
-                  : "hover:bg-sidebar-accent/50 text-sidebar-foreground"
-              } transition-background flex items-center gap-6 rounded-md px-4 py-6 font-medium transition duration-400`
-            }
-          >
-            <FontAwesomeIcon icon={icon} className="text-lg" />
-            <span>{title}</span>
-          </NavLink>
-        ))}
+        {navData.map(
+          (nav) =>
+            nav.addToNav && (
+              <NavLink
+                to={nav.link}
+                key={nav.id}
+                className={({ isActive }) =>
+                  `${
+                    isActive
+                      ? "bg-sidebar-accent text-sidebar-accent-foreground"
+                      : "hover:bg-sidebar-accent/50 text-sidebar-foreground"
+                  } transition-background flex items-center gap-6 rounded-md px-4 py-6 font-medium transition duration-400`
+                }
+              >
+                <FontAwesomeIcon icon={nav.icon} className="text-lg" />
+                <span>{nav.title}</span>
+              </NavLink>
+            ),
+        )}
       </nav>
       <div className="w-full px-8 pb-8">
         {/* Theme Toggler */}
         <ThemeToggle />
 
         {/* Logout Button */}
-        <LogoutBtn
-        />
+        <LogoutBtn />
       </div>
     </aside>
   );

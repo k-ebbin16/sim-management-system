@@ -50,6 +50,7 @@ function App() {
       description: "",
       icon: "fa-solid fa-house",
       pageComponent: HomePage,
+      addToNav: true,
     },
     {
       id: uuid(),
@@ -57,6 +58,7 @@ function App() {
       link: "/student-records",
       description: "Browse all student SIM records",
       icon: "fa-solid fa-table",
+      addToNav: true,
     },
     {
       id: uuid(),
@@ -64,6 +66,7 @@ function App() {
       link: "/assign",
       description: "Filter and Manage SIM assignments",
       icon: "fa-solid fa-sim-card",
+      addToNav: true,
     },
     {
       id: uuid(),
@@ -72,6 +75,7 @@ function App() {
       description: "View an individual students details",
       icon: "fa-solid fa-users",
       pageComponent: SysUsersPage,
+      addToNav: true,
     },
     {
       id: uuid(),
@@ -80,7 +84,18 @@ function App() {
       link: "/add-users",
       description: "Manage system users and permissions",
       icon: "fa-solid fa-user-plus",
+      addToNav: true,
     },
+    {
+      id: uuid(),
+      name: "",
+      title: "Role Permissions",
+      link: "/roles/permissions/:roleId",
+      description: "Manage role permissions",
+      icon: "fa-solid fa-user-tie",
+      addToNav: false,
+    },
+    
   ];
 
   return (
