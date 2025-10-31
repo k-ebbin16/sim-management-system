@@ -18,6 +18,7 @@ function Tabs({
     }
   }, [value]);
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const handleTabChange = (newValue) => {
     if (value === undefined) {
       setActiveTab(newValue);
