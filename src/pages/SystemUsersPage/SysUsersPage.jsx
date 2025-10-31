@@ -20,6 +20,12 @@ function SysUsersPage() {
 
       {/* Users Stats Grid */}
 
+      <div className="mb-4">
+        <h2>User Roles</h2>
+        <p className="text-muted-foreground">
+          Click on a role to manage its permissions
+        </p>
+      </div>
       <Suspense fallback={<PulseLoading />}>
         <UserRolesGrid />
       </Suspense>
