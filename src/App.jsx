@@ -67,7 +67,7 @@ function App() {
     },
     {
       id: uuid(),
-      title: "System Users",
+      title: "User Administration",
       link: "/system-users",
       description: "View an individual students details",
       icon: "fa-solid fa-users",
