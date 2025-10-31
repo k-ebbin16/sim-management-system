@@ -8,7 +8,7 @@ import { fab } from "@fortawesome/free-brands-svg-icons";
 import { far } from "@fortawesome/free-regular-svg-icons";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { Link, useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import {
   Tabs,
@@ -21,9 +21,12 @@ library.add(fas, far, fab);
 
 function RolePermissionsPage() {
   const { roleId } = useParams();
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("all");
   const [roleInfo, setRoleInfo] = useState({ name: "", description: "" });
   const [rolePermissions, setRolePermissions] = useState([]);
+  const [hasChanges, setHasChanges] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
 
   useEffect(() => {
     const getRolePermissions = async () => {
@@ -37,6 +40,76 @@ function RolePermissionsPage() {
     };
     getRolePermissions();
   }, [roleId]);
+
+  // Handle toggle permission
+  const handleTogglePermission = (claimValue) => {
+    setRolePermissions((prevPermissions) =>
+      prevPermissions.map((permission) =>
+        permission.claimValue === claimValue
+          ? { ...permission, isAssignedToRole: !permission.isAssignedToRole }
+          : permission,
+      ),
+    );
+    setHasChanges(true);
+  };
+
+  // Handle save changes
+  const handleSave = async () => {
+    if (!hasChanges) return;
+
+    try {
+      setIsSaving(true);
+
+      const updatePayload = {
+        roleId: roleId,
+        roleClaims: rolePermissions.map((permission) => ({
+          roleId: roleId,
+          claimType: permission.claimType,
+          claimValue: permission.claimValue,
+          description: permission.description,
+          group: permission.group,
+          isAssignedToRole: permission.isAssignedToRole,
+        })),
+      };
+
+      await api.put("/Roles/update-permissions", updatePayload);
+
+      setHasChanges(false);
+      // Show success message or handle success state
+      console.log("Permissions updated successfully");
+    } catch (error) {
+      console.error("Error updating permissions:", error);
+      // Show error message to user
+    } finally {
+      setIsSaving(false);
+    }
+  };
+
+  // Handle cancel
+  const handleCancel = () => {
+    // Reload the original data to discard changes
+    const getRolePermissions = async () => {
+      try {
+        const response = await api.get(`/Roles/permissions/${roleId}`);
+        setRolePermissions(response?.data.responseData.roleClaims || []);
+        setHasChanges(false);
+      } catch (error) {
+        console.error("Error reloading role permissions:", error);
+      }
+    };
+    getRolePermissions();
+  };
+
+  // Handle back to users
+  const handleBackToUsers = () => {
+    if (hasChanges) {
+      const confirmLeave = window.confirm(
+        "You have unsaved changes. Are you sure you want to leave?",
+      );
+      if (!confirmLeave) return;
+    }
+    navigate("/system-users"); // Adjust the route as needed
+  };
 
   // Extract unique groups/categories from permissions
   const categories = [...new Set(rolePermissions.map((p) => p.group))];
@@ -58,15 +131,14 @@ function RolePermissionsPage() {
     <main className="bg-background min-h-dvh w-full flex-1 p-4 pt-20 sm:p-6 sm:pt-6">
       <div className="mb-6">
         {/* Back Button */}
-        <Link to="/system-users">
-          <Button
-            className="bg-accent text-accent-foreground hover:bg-accent/70 mt-3 mb-4 w-full sm:w-auto"
-            iconBeforeText={true}
-            icon="fa-solid fa-arrow-left"
-          >
-            Back to Users
-          </Button>
-        </Link>
+        <Button
+          className="bg-accent text-accent-foreground hover:bg-accent/70 mb-4 w-full sm:w-auto"
+          iconBeforeText={true}
+          icon="fa-solid fa-arrow-left"
+          onClick={handleBackToUsers}
+        >
+          Back to Users
+        </Button>
 
         {/* Header Section */}
         <div className="mb-4 flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
@@ -79,6 +151,11 @@ function RolePermissionsPage() {
               <h1 className="text-foreground text-xl font-medium sm:text-2xl">
                 {roleInfo.name} Permissions
               </h1>
+              {hasChanges && (
+                <span className="bg-accent text-accent-foreground rounded px-2 py-1 text-xs">
+                  Unsaved Changes
+                </span>
+              )}
             </div>
             <p className="text-muted-foreground text-sm sm:text-base">
               Information on the {roleInfo.description}
@@ -88,8 +165,10 @@ function RolePermissionsPage() {
             className="bg-primary text-primary-foreground hover:bg-primary/90 w-full justify-center sm:w-auto"
             icon="fa-solid fa-floppy-disk"
             iconBeforeText={true}
+            onClick={handleSave}
+            disabled={!hasChanges || isSaving}
           >
-            Save Changes
+            {isSaving ? "Saving..." : "Save Changes"}
           </Button>
         </div>
 
@@ -172,7 +251,7 @@ function RolePermissionsPage() {
         {/* Permissions Card */}
         <Card>
           {/* Title and Description Section */}
-          <div className="mb-4 p-4 pb-0">
+          <div className="mb-4 p-4 pb-0 sm:mb-6 sm:p-6">
             <div className="flex flex-col gap-2">
               <h2 className="text-card-foreground text-lg font-medium sm:text-xl">
                 Manage Permissions
@@ -183,12 +262,8 @@ function RolePermissionsPage() {
               </p>
             </div>
           </div>
-          <CardContent className="p-4v pt-0">
-            <Tabs
-              value={activeTab}
-              onValueChange={setActiveTab}
-              className="w-full"
-            >
+          <CardContent className="p-4 sm:p-6">
+            <Tabs value={activeTab} onValueChange={setActiveTab}>
               <TabsList className="h-auto w-full flex-wrap justify-start gap-1 sm:gap-2">
                 <TabsTrigger
                   value="all"
@@ -244,6 +319,9 @@ function RolePermissionsPage() {
                                 ? "bg-primary"
                                 : "bg-switch-background"
                             }`}
+                            onClick={() =>
+                              handleTogglePermission(permission.claimValue)
+                            }
                           >
                             <div
                               className={`bg-background h-4 w-4 transform rounded-full shadow-md transition-transform ${
@@ -275,14 +353,19 @@ function RolePermissionsPage() {
 
         {/* Action Buttons */}
         <div className="mt-6 flex flex-col-reverse justify-end gap-3 sm:flex-row">
-          <Button className="text-foreground outline-primary hover:bg-muted hover:text-muted-foreground w-full justify-center bg-transparent outline-1 sm:w-auto">
+          <Button
+            className="text-foreground outline-primary hover:bg-muted hover:text-muted-foreground w-full justify-center bg-transparent outline-1 sm:w-auto"
+            onClick={handleCancel}
+            disabled={!hasChanges || isSaving}
+          >
             Cancel
           </Button>
           <Button
             className="bg-primary text-primary-foreground hover:bg-primary/90 w-full justify-center sm:w-auto"
-            // onClick={handleSave}
+            onClick={handleSave}
+            disabled={!hasChanges || isSaving}
           >
-            Save Changes
+            {isSaving ? "Saving..." : "Save Changes"}
           </Button>
         </div>
       </div>
