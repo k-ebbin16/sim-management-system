@@ -16,6 +16,7 @@ const NotFound = lazy(() => import("./pages/NotFound/NotFound"));
 const RolePermissionsPage = lazy(
   () => import("./pages/RolePermissionsPage/RolePermissionsPage"),
 );
+const AddUserPage = lazy(() => import("./pages/AddUserPage/AddUserPage"));
 
 function App() {
   const { isAuthenticated } = useContext(AuthContext);
@@ -83,10 +84,11 @@ function App() {
     {
       id: uuid(),
       name: "",
-      title: "Add Users",
-      link: "/add-users",
+      title: "Add User",
+      link: "/add-user",
       description: "Manage system users and permissions",
       icon: "fa-solid fa-user-plus",
+      pageComponent: AddUserPage,
       addToNav: true,
     },
     {
