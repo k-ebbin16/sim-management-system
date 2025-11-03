@@ -14,7 +14,7 @@ import { useNavigate } from "react-router-dom";
 library.add(fas, far, fab);
 
 const AllUsersTable = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -119,8 +119,7 @@ const AllUsersTable = () => {
   }, []);
 
   const handleAddUser = () => {
-    navigate("/add-user")
-    console.log("Add user button clicked");
+    navigate("/add-user");
   };
 
   const handleEdit = (user) => {
