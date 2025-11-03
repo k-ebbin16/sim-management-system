@@ -98,7 +98,7 @@ function RolePermissionsPage() {
   };
 
   return (
-    <main className="bg-background min-h-dvh w-full flex-1 p-4 pt-24 sm:p-6 sm:pt-8">
+    <main className="bg-background min-h-dvh w-full flex-1 p-4 pt-24 lg:p-6 lg:pt-8">
       <div className="mb-6">
         <RolePermissionsHeader
           roleInfo={roleInfo}

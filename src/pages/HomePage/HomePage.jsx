@@ -1,9 +1,9 @@
 import RecentRecords from "./RecentRecords";
-import StatsGrid from "./StatsGrid";
+import StatsGrid from "./StatsGrid";  
 
 function HomePage() {
   return (
-    <main className="bg-background min-h-dvh w-full flex-1 p-6 pt-[80px] lg:w-3/5 lg:pt-6">
+    <main className="bg-background min-h-dvh w-full flex-1 p-6 pt-24 lg:w-3/5 lg:pt-6">
       {/* Hero Section */}
       <section className="bg-primary text-primary-foreground relative mb-8 overflow-hidden rounded-lg">
         <div className="absolute inset-0 opacity-10">

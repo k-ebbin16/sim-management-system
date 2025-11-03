@@ -17,6 +17,7 @@ const Button = ({
   icon = "",
   iconBeforeText = false,
   className,
+  ...props
 }) => {
   return (
     <button
@@ -27,7 +28,9 @@ const Button = ({
         "focus:ring-ring transition-colors duration-300 focus:ring-2 focus:ring-offset-2",
         iconBeforeText ? "flex-row-reverse" : "flex-row",
         className,
+        "disabled:opacity-50"
       )}
+      {...props}
     >
       {children}
       <FontAwesomeIcon icon={icon} className="text-sm" />

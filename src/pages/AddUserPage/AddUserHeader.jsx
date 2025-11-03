@@ -1,16 +1,22 @@
 import Button from "../../components/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { cn } from "../../utils/util";
+import { useNavigate } from "react-router-dom";
 
-function AddUserHeader({ hasChanges, isSaving, onBack, onSave }) {
+function AddUserHeader() {
+  const navigate = useNavigate();
+    const handleBackToUsers = () => {
+      navigate("/system-users");
+    };
+
   return (
-    <>
+    <div>
       {/* Back Button */}
       <Button
-        className="bg-accent text-accent-foreground hover:bg-accent/70 mb-4 w-full sm:w-auto"
+        className="bg-accent text-accent-foreground hover:bg-accent/70 mb-8 w-full sm:w-auto"
         iconBeforeText={true}
         icon="fa-solid fa-arrow-left"
-        onClick={onBack}
+        onClick={handleBackToUsers}
       >
         Back to Users
       </Button>
@@ -26,28 +32,15 @@ function AddUserHeader({ hasChanges, isSaving, onBack, onSave }) {
             <h1 className="text-foreground text-xl font-medium sm:text-2xl">
               Add New User
             </h1>
-            {hasChanges && (
-              <span className="bg-accent text-accent-foreground rounded px-2 py-1 text-xs">
-                Unsaved Changes
-              </span>
-            )}
           </div>
           <p className="text-muted-foreground text-sm sm:text-base">
             Create a new system user account
           </p>
         </div>
 
-        <Button
-          className="bg-primary text-primary-foreground hover:bg-primary/90 w-full justify-center sm:w-auto"
-          icon="fa-solid fa-floppy-disk"
-          iconBeforeText={true}
-          onClick={onSave}
-          disabled={!hasChanges || isSaving}
-        >
-          {isSaving ? "Saving..." : "Save Changes"}
-        </Button>
+        
       </div>
-    </>
+    </div>
   );
 }
 

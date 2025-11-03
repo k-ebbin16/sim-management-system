@@ -24,7 +24,7 @@ const TableHeader = ({
             {title}
           </h2>
           {description && (
-            <p className="text-muted-foreground max-w-2xl text-sm sm:text-base">
+            <p className="text-muted-foreground max-w-2xl text-sm lg:text-base">
               {description}
             </p>
           )}
@@ -35,6 +35,7 @@ const TableHeader = ({
               onClick={onAdd}
               icon="fa-solid fa-plus"
               iconBeforeText={true}
+              className="text-sm"
             >
               {addButtonText}
             </Button>
