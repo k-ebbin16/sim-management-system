@@ -4,11 +4,12 @@ import {
   TabsList,
   TabsTrigger,
 } from "../../components/Tabs";
+
 import Card from "../../components/Card/Card";
 import CardContent from "../../components/Card/CardContent";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import SearchBar from "../../components/SearchBar";
 import PermissionItem from "./PermissionItem";
+import SearchBar from "../../components/SearchBar";
 
 function PermissionsManager({
   roleInfo,

@@ -19,20 +19,20 @@ const SearchBar = ({
   className,
 }) => {
   return (
-      <Input
-        icon="fa-solid fa-search "
-        type="text"
-        placeholder={placeholder}
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-        className={cn(
-          "border-border bg-input-background w-full rounded-lg border py-2 pr-4 pl-9",
-          "sm:w-64",
-          "text-muted-foreground text-sm",
-          className,
-        )}
-        autoComplete="none"
-      />
+    <Input
+      icon="fa-solid fa-search "
+      type="text"
+      placeholder={placeholder}
+      value={value}
+      onChange={(e) => onChange(e.target.value)}
+      className={cn(
+        "border-border bg-input-background w-full rounded-lg border py-2 pr-4 pl-9",
+        "sm:w-64",
+        "text-muted-foreground text-sm",
+        className,
+      )}
+      autoComplete="none"
+    />
   );
 };
 

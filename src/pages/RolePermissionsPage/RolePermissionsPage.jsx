@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import api from "../../api/axios";
 
+import ActionButtons from "./ActionButtons";
+import PermissionsManager from "./PermissionsManager";
 import RolePermissionsHeader from "./RolePermissionsHeader";
 import StatsCards from "./StatsCards";
-import PermissionsManager from "./PermissionsManager";
-import ActionButtons from "./ActionButtons";
+import api from "../../api/axios";
 
 function RolePermissionsPage() {
   const { roleId } = useParams();
